@@ -1,0 +1,26 @@
+<div ng-controller="DetailsGeneralController">
+   <pf-wizard-substep step-title="General"
+                      next-enabled="detailsGeneralComplete"
+                      step-id="details-general"
+                      step-priority="0"
+                      on-show="onShow"
+                      focus-selectors="focusSelectors"
+                      review-template="{{reviewTemplate}}"
+                      show-review-details="true">
+     <form class="form-horizontal">
+       <pf-form-group pf-label="Name of the application" pf-label-class="col-sm-3 col-md-5" pf-input-class="col-sm-9 col-md-7" required>
+          <input id="new-name" name="name" ng-model="data.name" type="text" ng-change="updateName()" required/>
+       </pf-form-group>
+       <pf-form-group pf-label="Version" pf-label-class="col-sm-3 col-md-5" pf-input-class="col-sm-9 col-md-7" >
+         <input id="new-version" name="version" ng-model="data.version" type="text"  ng-change="updateName()" required/>
+       </pf-form-group>
+       <pf-form-group pf-label="Select version" pf-label-class="col-sm-3 col-md-5" pf-input-class="col-sm-9 col-md-7" >
+         <select id="new-version-selected" name="selected-version" ng-model="data.version" ng-change="updateName()" >
+          <option>7.10.0-SNAPSHOT</option>
+          <option>7.9.0.Final</option>
+          <option>7.8.0.Final</option>
+        </select>
+       </pf-form-group>
+     </form>
+  </pf-wizard-substep>
+</div>

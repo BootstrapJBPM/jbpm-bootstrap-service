@@ -1,0 +1,16 @@
+<div ng-controller="DetailsReviewController">
+  <form class="form">
+    <div class="wizard-pf-review-item">
+      <span class="wizard-pf-review-item-label">Business automation:</span>
+      <span class="wizard-pf-review-item-value"><span class="pficon pficon-ok" ng-if="data.capabilities.bpm"/><span class="pficon pficon-error-circle-o" ng-if="!data.capabilities.bpm"/></span>
+    </div>
+    <div class="wizard-pf-review-item">
+      <span class="wizard-pf-review-item-label">Decision management:</span>
+      <span class="wizard-pf-review-item-value"><span class="pficon pficon-ok" ng-if="data.capabilities.brm"/><span class="pficon pficon-error-circle-o" ng-if="!data.capabilities.brm"/></span>
+    </div>
+    <div class="wizard-pf-review-item">
+      <span class="wizard-pf-review-item-label">Business optimizer:</span>
+      <span class="wizard-pf-review-item-value"><span class="pficon pficon-ok" ng-if="data.capabilities.planner"/><span class="pficon pficon-error-circle-o" ng-if="!data.capabilities.planner"/></span>
+    </div>
+  </form>
+</div>
