@@ -88,6 +88,9 @@ public class ProjectsResource {
         File generatedProject = null;
         try {
             File tempFolder = new File(parent, UUID.randomUUID().toString());
+            new File(tempFolder, "model").mkdirs();
+            new File(tempFolder, "service").mkdirs();
+            new File(tempFolder, "kjar").mkdirs();
             requestedProject.setLocation(tempFolder.getAbsolutePath());
             logger.info("Location for the generated project is {}, final file name of the generated project is {}", requestedProject.getLocation(), fileName);
             fileName = MimeUtility.encodeWord(baseFileName, "utf-8", "Q");
@@ -101,7 +104,11 @@ public class ProjectsResource {
             logger.info("Project generation via process with instance id {} done in {} ms", processInstanceId, (System.currentTimeMillis() - timestamp));
             
             generatedProject = new File(tempFolder, fileName);
+            waitForGeneratedProject(generatedProject);
+            
             input = new FileInputStream(generatedProject);
+            
+            
         
             StreamingOutput entity = new StreamingOutput() {
     
@@ -129,11 +136,32 @@ public class ProjectsResource {
     
     protected String resolveApplicationType(Project project) {
         if (project.getCapabilities().contains("brm")) {
-            return "businessmanagement";
+            return "brm";
         } else if (project.getCapabilities().contains("planner")) {
-            return "optimizer";
+            return "planner";
         } else {
-            return "default";
+            return "bpm";
+        }
+    }
+    
+    protected void waitForGeneratedProject(File generatedProject) {
+    	try{
+    		long totalWaitTime = 0;
+            while(true) {
+                
+                if(!generatedProject.exists()) {                       
+                   Thread.sleep(200);
+                   totalWaitTime += 200;
+                   
+                   if (totalWaitTime > 20000) {
+                	   throw new RuntimeException("Timeout while waiting for generated project");
+                   }
+                   continue;
+                } 
+                
+                return;
+            }
+        } catch (InterruptedException e) {            
         }
     }
 }
