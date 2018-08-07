@@ -5,200 +5,133 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- PatternFly Styles -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+	<link rel="stylesheet" type="text/css" href="kie-main.css">
+	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
 	<title>jBPM - Start your business application</title>
-
+	
 	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/jquery.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/bootstrap.min.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/bootstrap-select.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/jquery-ui.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/jquery.dataTables.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/dataTables.select.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/moment.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/d3.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/c3.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/patternfly-settings.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/patternfly-settings-colors.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/patternfly-settings-charts.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-dragdrop.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-datatables.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-datatables.select.min.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-sanitize.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-animate.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/ui-bootstrap-tpls.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-bootstrap-prettify.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/lodash.min.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-patternfly.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-ui-router.min.js"></script>
-    <script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-drag-and-drop-lists.js"></script>
-    <script src="script.js"></script>
-
-    <style>
-	*, ::after, ::before {
-    box-sizing: border-box;
-}
-	body {
-	  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	}
-
-	h1,h2,h3 {
-	  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	  font-weight: 700;
-	}
-
-	header.masthead {
-	  position: relative;
-	  background-color: #343a40;
-	  background: url("img/bg-masthead.jpg") no-repeat center center;
-	  -webkit-background-size: cover;
-	  -moz-background-size: cover;
-	  -o-background-size: cover;
-	  background-size: cover;
-	  padding-top: 8rem;
-	  padding-bottom: 8rem;
-	  height: 500px
-	}
-
-	header.masthead .overlay {
-	  position: absolute;
-	  background-color: #212529;
-	  height: 100%;
-	  width: 100%;
-	  top: 0;
-	  left: 0;
-	  opacity: 0.3;
-	}
-
-	header.masthead h1 {
-	  font-size: 2rem;
-	}
-
-
-	@media (min-width: 768px) {
-	  header.masthead {
-	    padding-top: 12rem;
-	    padding-bottom: 12rem;
-	  }
-	  header.masthead h1 {
-	    font-size: 3rem;
-	  }
-	}
-
-	.features-icons {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-}
-
-.features-icons .features-icons-item {
-  max-width: 20rem;
-}
-
-.features-icons .features-icons-item .features-icons-icon {
-  height: 7rem;
-}
-
-.features-icons .features-icons-item .features-icons-icon i {
-  font-size: 4.5rem;
-}
-
-.features-icons .features-icons-item:hover .features-icons-icon i {
-  font-size: 5rem;
-}
-.btn-group-lg>.btn, .btn-lg {
-    padding: .5rem 1rem;
-    font-size: 1.25rem;
-    line-height: 1.5;
-    border-radius: .3rem;
-}
-.btn-block {
-    display: block;
-    width: 100%;
-}
-.text-white {
-    color: #fff!important;
-}
-
-      .modal-content {
-        height : 500px;
-      }
-
-    </style>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/bootstrap.min.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/bootstrap-select.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/jquery-ui.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/jquery.dataTables.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/dataTables.select.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/moment.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/d3.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/c3.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/patternfly-settings.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/patternfly-settings-colors.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/patternfly-settings-charts.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-dragdrop.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-datatables.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-datatables.select.min.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-sanitize.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-animate.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/ui-bootstrap-tpls.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-bootstrap-prettify.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/lodash.min.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-patternfly.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-ui-router.min.js"></script>
+	<script src="https://www.patternfly.org/angular-patternfly/grunt-scripts/angular-drag-and-drop-lists.js"></script>
+	<script src="script.js"></script>
+	
+	<style>
+			.kie-container-fluid--blank-slate {
+			position: relative;
+			background-color: #343a40;
+			background: url("img/bg-masthead.jpg") no-repeat center center;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			padding-left: 0;
+			padding-right: 0;
+			height: 100vh;		
+		}
+		.blank-slate-pf  {
+			margin: 0 0 0 0;
+		}
+		@media (min-width: 768px) {
+			.blank-slate-pf {
+				margin: 60px 60px;
+			}
+		}
+		@media (min-width: 992px) {
+			.blank-slate-pf {
+				margin: 90px 120px;
+			}
+		}
+		.kie-blank-slate-pf--light{
+			background-color: rgb(255,255,255,0.9);
+			
+		}
+		@media (min-width: 1200px){
+			.kie-blank-slate-pf-secondary-action--home > *:not(:last-child) {
+				border-right: none;
+			}
+		}
+	
+		.modal-content {
+			height : 500px;
+		} 
+		
+	</style>
+	
+	
+	
+	
 </head>
 <body id="app-body">
 	<!-- Navigation -->
-    <nav class="navbar navbar-light bg-light static-top">
-      <div class="container">
-        <a class="navbar-brand" href="https://jbpm.org">jBPM</a>
-      </div>
-    </nav>
-
-    <!-- Masthead -->
-    <header class="masthead text-white text-center">
-
-      <div class="container">
-        <div class="row">
-			<div class="col-lg-3 mx-auto"><span/></div>
-          <div class="col-lg-6 mx-auto">
-            <h1>Build your business application in just few seconds!</h1>
-          </div>
-		  <div class="col-lg-3 mx-auto"><span/></div>
-        </div>
-		<div class="row">
-			<div><span>&nbsp;</span></div>
+	<nav class="navbar navbar-default navbar-pf" role="navigation">
+		<div class="navbar-header">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="https://jbpm.org">jBPM.org</a>
+			</div>
 		</div>
-		<div class="row">
-			<div><span>&nbsp;</span></div>
+	</nav>
+	
+	<!-- Blank slate with primary and 3 secondary actions -->
+	<div class="container-fluid kie-container-fluid--blank-slate">
+		<!-- blank state content -->
+		<div class="blank-slate-pf kie-blank-slate-pf--light row">
+			<div class="blank-slate-pf__header">
+				<h1 class="kie-homepage-welcome" id="welcome">
+					Build your business application in just a few seconds!
+				</h1>
+				<div class="blank-slate-pf-main-action"  ng-controller="WizardModalController">
+					<button id="generateButton" ng-click="openWizardModel()" class="btn btn-primary btn-lg"> Generate application </button>
+				</div>
+			</div>
+			<br>
+			<br>
+			<div class="blank-slate-pf-secondary-action kie-blank-slate-pf-secondary-action--home">
+				<div class="kie-hero-card" id="demo1" role="button" tabindex="0">
+					<div class="fa fa-code-fork kie-hero-card__icon kie-circle-icon"></div>
+					<div class="kie-hero-card__text">
+						<h2>Version</h2>
+						<div>Select <a href="#0" class="kie-hero-card__link">the version</a> you want to use or type a custom one.</div>
+					</div>
+				</div>
+				<div class="kie-hero-card" id="demo3" role="button" tabindex="0">
+					<div class="fa fa-briefcase kie-hero-card__icon kie-circle-icon kie-circle-icon--lg"></div>
+					<div class="kie-hero-card__text">
+						<h2>Business Automation</h2>
+						<div>Select the business automation capabilities that you need.</div>
+					</div>
+				</div>
+				<div class="kie-hero-card" id="demo2" role="button" tabindex="0">
+					<div class="pficon pficon-settings kie-hero-card__icon kie-circle-icon kie-circle-icon--lg"></div>
+					<div class="kie-hero-card__text">
+						<h2>Project Options</h2>
+						<div>Select options for your business application.</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="row">
-			<div><span>&nbsp;</span></div>
-		</div>
-		<div class="row">
-		  <div class="col-lg-4 mx-auto"><span/></div>
-		  <div class="col-lg-4 mx-auto">
-			  <div ng-controller="WizardModalController">
-  			  <button id="generateButton" ng-click="openWizardModel()" class="btn btn-block btn-lg btn-primary"><h2>Generate application</h2></button>
-  			</div>
-          </div>
-		  <div class="col-lg-4 mx-auto"><span/></div>
-        </div>
-      </div>
-    </header>
-	<!-- Icons Grid -->
-	    <section class="features-icons bg-light text-center">
-	      <div class="container">
-	        <div class="row">
-	          <div class="col-lg-4">
-	            <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-	              <div class="features-icons-icon d-flex">
-	                <i class="icon-check m-auto text-primary"></i>
-	              </div>
-	              <h3>Version</h3>
-	              <p class="lead mb-0">Select version you want to use or type your custom one</p>
-	            </div>
-	          </div>
-	          <div class="col-lg-4">
-	            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-	              <div class="features-icons-icon d-flex">
-	                <i class="icon-screen-desktop m-auto text-primary"></i>
-	              </div>
-	              <h3>Business automation</h3>
-	              <p class="lead mb-0">Select business automation capabilities you need</p>
-	            </div>
-	          </div>
-	          <div class="col-lg-4">
-	            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-	              <div class="features-icons-icon d-flex">
-	                <i class="icon-layers m-auto text-primary"></i>
-	              </div>
-	              <h3>Project options</h3>
-	              <p class="lead mb-0">Select options that your business application will consists of</p>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	    </section>
+	</div>
+	<!-- end blank slate -->
 </body>
 </html>
