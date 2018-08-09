@@ -88,28 +88,31 @@ public class ProjectsResource {
         File generatedProject = null;
         try {
             File tempFolder = new File(parent, UUID.randomUUID().toString());
-            new File(tempFolder, "model").mkdirs();
-            new File(tempFolder, "service").mkdirs();
-            new File(tempFolder, "kjar").mkdirs();
             requestedProject.setLocation(tempFolder.getAbsolutePath());
             logger.info("Location for the generated project is {}, final file name of the generated project is {}", requestedProject.getLocation(), fileName);
             fileName = MimeUtility.encodeWord(baseFileName, "utf-8", "Q");
             
             long timestamp = System.currentTimeMillis();
             logger.info("About to start new process with container {} and process id {}", CONTAINER_ID, PROCESS_ID);
+            
+            String kjarSettings = "";
+            if (requestedProject.getOptions().contains("kjar")) {
+                kjarSettings = "-DkjarGroupId=com.company -DkjarArtifactId=" + requestedProject.getName() + "-kjar -DkjarVersion=1.0-SNAPSHOT";
+            }
+            
             Map<String, Object> params = new HashMap<>();
             params.put("project", requestedProject);
             params.put("projectSetup", resolveApplicationType(requestedProject));
+            params.put("kjarSettings", kjarSettings);
             long processInstanceId = processService.startProcess(CONTAINER_ID, PROCESS_ID, factory.newCorrelationKey(requestedProject.getName()), params);
-            logger.info("Project generation via process with instance id {} done in {} ms", processInstanceId, (System.currentTimeMillis() - timestamp));
+            
             
             generatedProject = new File(tempFolder, fileName);
             waitForGeneratedProject(generatedProject);
             
+            logger.info("Project generation via process with instance id {} done in {} ms", processInstanceId, (System.currentTimeMillis() - timestamp));
             input = new FileInputStream(generatedProject);
-            
-            
-        
+
             StreamingOutput entity = new StreamingOutput() {
     
                 @Override

@@ -19079,7 +19079,10 @@ table.dataTable th:active {
   padding: 1em;
   vertical-align: top;
   width: 100%;
+  height: 100vh !important; 
+  max-height: 100vh !important;
 }
+
 @media (min-width: 768px) {
   .wizard-pf-main {
     overflow: auto;
