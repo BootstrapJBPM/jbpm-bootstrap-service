@@ -39,7 +39,7 @@ public class ZipArchiveWorkItemHandler implements WorkItemHandler {
     public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
         String sourceDirectory = (String) workItem.getParameter("SourcePath");
         String archiveName = (String) workItem.getParameter("Archive");
-        logger.info("About to create zip archive {} based on content of {}", archiveName, sourceDirectory);
+        logger.debug("About to create zip archive {} based on content of {}", archiveName, sourceDirectory);
         if (sourceDirectory == null || archiveName == null) {
             throw new RuntimeException("Archive and SourcePath parameters are mandatory");
         }
@@ -49,7 +49,7 @@ public class ZipArchiveWorkItemHandler implements WorkItemHandler {
         List<String> fileList = new ArrayList<>();
         generateFileList(sourceDirectory, fileList, new File(sourceDirectory));
         zipIt(sourceDirectory, archivePath, fileList);
-        logger.info("Zip created successfully and stored at {}", archivePath);
+        logger.debug("Zip created successfully and stored at {}", archivePath);
         
         manager.completeWorkItem(workItem.getId(), null);
     }
@@ -68,11 +68,11 @@ public class ZipArchiveWorkItemHandler implements WorkItemHandler {
             fos = new FileOutputStream(zipFile);
             zos = new ZipOutputStream(fos);
 
-            logger.info("Output to zip {}", zipFile);
+            logger.debug("Output to zip {}", zipFile);
             FileInputStream in = null;
 
             for (String file: fileList) {
-                logger.info("File added : " + file);
+                logger.debug("File added : " + file);
                 ZipEntry ze = new ZipEntry(file);
                 zos.putNextEntry(ze);
                 try {
@@ -87,7 +87,7 @@ public class ZipArchiveWorkItemHandler implements WorkItemHandler {
             }
 
             zos.closeEntry();
-            logger.info("Folder successfully compressed");
+            logger.debug("Folder successfully compressed");
 
         } catch (IOException ex) {
             ex.printStackTrace();

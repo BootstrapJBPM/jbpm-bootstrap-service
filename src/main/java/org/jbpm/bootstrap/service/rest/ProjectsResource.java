@@ -38,8 +38,6 @@ import javax.ws.rs.core.StreamingOutput;
 import org.apache.commons.io.IOUtils;
 import org.jbpm.bootstrap.model.Project;
 import org.jbpm.services.api.ProcessService;
-import org.kie.internal.KieInternalServices;
-import org.kie.internal.process.CorrelationKeyFactory;
 import org.kie.server.springboot.autoconfiguration.KieServerAutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,8 +54,9 @@ public class ProjectsResource {
     private static final String CONTAINER_ID = "jbpm-bootstrap-kjar";
     private static final String PROCESS_ID = "GenerateProject";
     
-    private File parent = new File(System.getProperty("java.io.tmpdir"));
-    private CorrelationKeyFactory factory = KieInternalServices.Factory.get().newCorrelationKeyFactory();
+    private static final String KIE_VERSION = "7.9.0.Final";
+    
+    private File parent = new File(System.getProperty("java.io.tmpdir"));    
     
     @Autowired
     private KieServerAutoConfiguration serverConfiguration;
@@ -104,7 +103,8 @@ public class ProjectsResource {
             params.put("project", requestedProject);
             params.put("projectSetup", resolveApplicationType(requestedProject));
             params.put("kjarSettings", kjarSettings);
-            long processInstanceId = processService.startProcess(CONTAINER_ID, PROCESS_ID, factory.newCorrelationKey(requestedProject.getName()), params);
+            params.put("kieVersion", KIE_VERSION); // this refers to KIE archetypes version and should be aligned with KIE version used in the app
+            long processInstanceId = processService.startProcess(CONTAINER_ID, PROCESS_ID, params);
             
             
             generatedProject = new File(tempFolder, fileName);

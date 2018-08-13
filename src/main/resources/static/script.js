@@ -1,5 +1,5 @@
-angular.module('patternfly.wizard').controller('WizardModalController', ['$scope', '$timeout', '$uibModal', '$rootScope',
-  function ($scope, $timeout, $uibModal, $rootScope) {
+angular.module('patternfly.wizard').controller('WizardModalController', ['$scope', '$timeout', '$uibModal', '$rootScope', '$http',
+  function ($scope, $timeout, $uibModal, $rootScope, $http) {
     $scope.openWizardModel = function () {
       var wizardDoneListener,
           modalInstance = $uibModal.open({
@@ -19,6 +19,50 @@ angular.module('patternfly.wizard').controller('WizardModalController', ['$scope
 
       wizardDoneListener = $rootScope.$on('wizard.done', closeWizard);
     };
+    
+    $scope.generate = function () {
+        document.getElementById('generateButton').disabled = true;
+        document.getElementById('generateButton').classList.remove('btn-primary');
+        document.getElementById('generateButton').innerText = 'Please wait ... generating app....';        
+
+        var project = {
+          "name" : "business-application",
+          "version" : "7.10.0-SNAPSHOT",
+          "options" : [
+        	  "kjar",
+        	  "model",
+              "service"
+          ],
+          "capabilities" : [
+              "bpm"
+          ]
+        };
+
+        $http({method: 'POST', url: window.location.protocol + '//' + window.location.host + "/rest/projects",
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              responseType: 'arraybuffer',
+              data : project}).
+                      success(function(data, status, headers, config) {
+                    	  document.getElementById('generateButton').disabled = false;
+              			  document.getElementById('generateButton').classList.add('btn-primary');
+              			  document.getElementById('generateButton').innerText = 'Generate preconfigured application';
+              			  var blob = new Blob([data], {type: "application/zip"});
+              			  var a = document.createElement('a');
+	                      a.href = URL.createObjectURL(blob);
+	                      a.download = project.name + ".zip";
+	                      a.click();
+                      }).
+                      error(function(data, status, headers, config) {
+  						
+              			
+                          alert("Not possible to generate the project");
+                          document.getElementById('generateButton').disabled = false;
+              			  document.getElementById('generateButton').classList.add('btn-primary');
+              			  document.getElementById('generateButton').innerText = 'Generate preconfigured application';
+                      });
+      };
   }
 ]);
 angular.module('patternfly.wizard').controller('WizardController', ['$scope', '$timeout', '$rootScope',
@@ -180,7 +224,7 @@ angular.module('patternfly.wizard').controller('DeploymentController', ['$rootSc
     'use strict';
     $scope.onShow = function() {
     $scope.deploymentComplete = false;
-    $http({method: 'POST', url: "http://localhost:8090/rest/projects",
+    $http({method: 'POST', url: window.location.protocol + '//' + window.location.host + "/rest/projects",
           headers: {
               'Content-Type': 'application/json'
           },
