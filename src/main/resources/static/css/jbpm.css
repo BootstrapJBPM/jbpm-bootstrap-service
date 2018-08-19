@@ -13,8 +13,8 @@ body, h1, h2, h3 {
 }
 
 .start-header {
-    color: #ffffff;
-    background-color: #6495ED;
+    color: #6495ED;
+    background-color: #ffffff;
     font-size: 25px;
     padding: .5em 0;
     border-top: 4px solid #ba6237;
@@ -223,7 +223,7 @@ footer {
 }
 
 footer a, footer a:hover, footer a:focus {
-    color: #ba6237;
+    color: #ffffff;
 }
 
 
@@ -482,3 +482,16 @@ footer a, footer a:hover, footer a:focus {
     font-size: 1.7rem;
 }
 
+.masthead {
+	position: relative;
+	background-color: #343a40;
+	background: url("../img/bg-masthead.jpg") no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	padding-left: 0;
+	padding-right: 0;
+	height: 40vh;
+	weight: 100%;'
+}

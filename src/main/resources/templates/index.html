@@ -18,20 +18,33 @@
     <form action="#" id="generateForm" method="post" th:action="@{/}" th:object="${project}">
         <div class="row start-header">
             <div class="container">
-                <h1><img src="img/jbpm_logo.png"> start.<span style="color: #ffffff">jBPM</span>.org
-                    <small style="color: #ffffff"> build your business applications</small>
+                <h1><img src="img/jbpm_logo.png"> 
+                    <span style="color: #6495ED"> Business automation toolkit</span>
                 </h1>
             </div>
         </div>
-        <div class="row d-flex justify-content-center align-content-center">
-            <div>
-                <button type="button" class="btn btn-lg btn-primary" style="vertical-align:middle" onclick="generateWithDefaultSettings();">
-                    <i class="fas fa-spinner"></i>&nbsp;Build default app
-                </button>
-            </div>&nbsp;&nbsp;
-            <button id="configureApp" type="button" class="btn btn-lg btn-secondary" style="vertical-align:middle">
-                <i class="fa fa-cog"></i>&nbsp;Configure my own
-            </button>
+        <div class="masthead">
+        <div style="width: 100%; position:absolute; bottom:5px;">
+	        <div class="row d-flex justify-content-center align-content-center">
+	           	<h2 style="color: #ffffff">build your business application in just few seconds</h2>
+	        </div>
+	        <div class="row d-flex justify-content-center align-content-center">
+	            <div>
+	                <button type="button" class="btn btn-lg btn-primary" style="vertical-align:middle" onclick="generateWithDefaultSettings();">
+	                    <i class="fas fa-spinner"></i>&nbsp;Build default application
+	                </button>
+	            </div>
+	        </div>
+	        <br/>
+	        <div class="row d-flex justify-content-center align-content-center">
+		        <h2 style="color: #ffffff">or customize the application yourself ...</h2>
+	        </div>
+	        <div class="row d-flex justify-content-center align-content-center">
+	            <button id="configureApp" type="button" class="btn btn-lg btn-secondary" style="vertical-align:middle">
+	                <i class="fa fa-cog"></i>&nbsp;Configure application
+	            </button>
+	        </div>
+	        </div>
         </div>
         <br/><br/>
 
@@ -53,7 +66,7 @@
                             </div>
                             <div class="steps-step no-height">
                                 <button href="#step-3" type="button" class="btn btn-circle btn-xl align-content-center" data-toggle="tooltip" data-toggle="tooltip" data-placement="top">
-                                    <i class="fa fa-user-check fa-3x"></i></button>
+                                    <i class="fa fa-sliders-h fa-3x"></i></button>
                             </div>
                         </div>
                     </div>
@@ -65,7 +78,7 @@
                     <div class="row setup-content" id="step-1" style="color: #6495ED;">
                         <div class="col-md-12 bg-light">
                             <h5 class="pl-0 my-4" style="color: #4682B4">
-                                <i class="fas fa-share-alt"></i>&nbsp;Select App Type
+                                <i class="fas fa-share-alt"></i>&nbsp;Select Application Type
                             </h5>
                             <div class="row d-flex justify-content-around">
                                 <div class="middle">
@@ -96,7 +109,7 @@
                             <br/>
                         </div>
                         <div class="col-md-12 form-group row d-flex justify-content-around">
-                            <button class="btn btn-secondary" type="button" onclick="setFormDefaults();">
+                            <button class="btn btn-secondary" type="button" onclick="cacnelConfiguration();">
                                 <i class="fas fa-times"></i>&nbsp;Cancel
                             </button>&nbsp;&nbsp;
                             <button class="btn btn-secondary nextBtn" type="button">Next&nbsp;<i class="fa fa-arrow-right"></i>
@@ -108,15 +121,18 @@
                     <div class="row setup-content" id="step-2" style="color: #6495ED;">
                         <div class="col-md-12 bg-light">
                             <h5 class="pl-0 my-4" style="color: #4682B4">
-                                <i class="fa fa fa-cog"></i>&nbsp;Enter App Info
+                                <i class="fa fa fa-cog"></i>&nbsp;Enter Application Info
                             </h5>
                             <div class="row d-flex justify-content-around" style="color: #4682B4">
                                 <div>
                                     <div class="form-group">
+                                        <label for="appPackage"><strong>* Package</strong></label>
+                                        <input id="appPackage" type="text" class="form-control" value="business-application" th:field="*{packageName}">
+                                    </div>                 
+                                    <div class="form-group">
                                         <label for="appName"><strong>* Application Name</strong></label>
                                         <input id="appName" type="text" class="form-control" value="business-application" th:field="*{name}">
                                     </div>
-                                    <br/>
                                     <div class="form-group">
                                         <label class="my-1 mr-2" for="kieVersion"><strong>* KIE Version</strong></label>
                                         <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
@@ -126,29 +142,6 @@
                                         </select>
                                     </div>
                                     <br/>
-
-                                    <div class="form-group" id="appModulesDiv">
-                                        <label for="appModulesDiv"><strong>* Application Modules:</strong></label><br/>
-                                        <div class="form-check form-check-inline">
-                                            <label>
-                                                <input type="checkbox" value="kjar" th:field="*{options}" name="moduleBusinessAssets" id="moduleBusinessAssets" autocomplete="off" checked/>
-                                                <span class="label-text">Business Assets</span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <label>
-                                                <input type="checkbox" value="model" th:field="*{options}" name="moduleDataModels" id="moduleDataModels" autocomplete="off" checked/>
-                                                <span class="label-text">Data Models</span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <label>
-                                                <input type="checkbox" value="service" th:field="*{options}" name="moduleWebServices" id="moduleWebServices" autocomplete="off" checked/>
-                                                <span class="label-text">Data Services</span>
-                                            </label>
-                                        </div>
-                                        <br/>
-                                    </div>
                                 </div>
 
                             </div>
@@ -157,7 +150,7 @@
                             <button class="btn btn-secondary prevBtn" type="button">
                                 <i class="fa fa-arrow-left"></i>&nbsp;Previous
                             </button>&nbsp;&nbsp;
-                            <button class="btn btn-secondary" type="button" onclick="setFormDefaults();">
+                            <button class="btn btn-secondary" type="button" onclick="cacnelConfiguration();">
                                 <i class="fas fa-times"></i>&nbsp;Cancel
                             </button>&nbsp;&nbsp;
                             <button class="btn btn-secondary nextBtn" type="button">Next&nbsp;<i class="fa fa-arrow-right"></i>
@@ -169,22 +162,46 @@
                     <div class="row setup-content" id="step-3" style="color: #6495ED;">
                         <div class="col-md-12 bg-light">
                             <h5 class="pl-0 my-4" style="color: #4682B4">
-                                <i class="fa fa-user-check"></i>&nbsp;Your business app is ready!
+                                <i class="fa fa-sliders-h"></i>&nbsp;Select application components
                             </h5>
-                            <div class="row d-flex justify-content-around" style="color: #4682B4">
-                                <button type="submit" class="btn btn-lg btn-primary" style="vertical-align:middle">
-                                    <i class="fas fa-spinner"></i>&nbsp;Build my business app
-                                </button>
-                            </div>
+                            <div class="row d-flex justify-content-around">
+                                <div class="middle">
+                                    <br/>
+                                    <label>
+                                        <input type="checkbox" value="kjar" th:field="*{options}" name="optionsKjar" id="optionsKjar"/>
+                                        <div class="box badger-right badger-info" data-badger="click">
+                                            <i class="fas fa-lightbulb fa-4x"></i>
+                                            <span>Business Assets</span>
+                                        </div>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" value="model" th:field="*{options}" name="optionsModel" id="optionsModel"/>
+                                        <div class="box badger-right badger-info" data-badger="click">
+                                            <i class="far fa-sliders-h fa-4x"></i>
+                                            <span>Data model</span>
+                                        </div>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" value="service" th:field="*{options}" name="optionsService" id="optionsService"/>
+                                        <div class="box badger-right badger-info" data-badger="click">
+                                            <i class="fas fa-cogs fa-4x"></i>
+                                            <span>Service</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div> 
                             <br/><br/>
                         </div>
                         <div class="col-md-12 form-group row d-flex justify-content-around">
                             <button class="btn btn-secondary prevBtn" type="button">
                                 <i class="fa fa-arrow-left"></i>&nbsp;Previous
                             </button>
-                            <button class="btn btn-secondary" type="button" onclick="setFormDefaults();">
+                            <button class="btn btn-secondary" type="button" onclick="cacnelConfiguration();">
                                 <i class="fas fa-times"></i>&nbsp;Cancel
                             </button>
+                            <button type="submit" class="btn btn-lg btn-primary" style="vertical-align:middle">
+                                    <i class="fas fa-spinner"></i>&nbsp;Build
+                                </button>
                         </div>
                     </div>
                 </div>
@@ -266,10 +283,11 @@
     });
 
     function setFormDefaults() {
-        $('input:checkbox#moduleBusinessAssets').prop("checked", true);
-        $('input:checkbox#moduleDataModels').prop("checked", true);
-        $('input:checkbox#moduleWebServices').prop("checked", true);
+        $('input:checkbox#optionsKjar').prop("checked", true);
+        $('input:checkbox#optionsModel').prop("checked", true);
+        $('input:checkbox#optionsService').prop("checked", true);
         $('input:radio#capabilitiesBusinessAutomation').prop('checked', 'checked');
+        $('input:text#appPackage').val('com.company');
         $('input:text#appName').val('business-application');
         $('#kieVersion').val('7.10.0-SNAPSHOT');
         $('div.setup-panel div button.btn-first').trigger('click');
@@ -278,6 +296,11 @@
     function generateWithDefaultSettings() {
         setFormDefaults();
         $('form#generateForm').submit();
+    }
+    
+    function cacnelConfiguration() {
+    	$("#mainConfigContent").toggle();
+    	setFormDefaults();
     }
 
 </script>

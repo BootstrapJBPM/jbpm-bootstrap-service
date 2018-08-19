@@ -122,7 +122,7 @@ public class IndexController {
 
             String kjarSettings = "";
             if (project.getOptions().contains("kjar")) {
-                kjarSettings = "-DkjarGroupId=com.company -DkjarArtifactId=" + project.getName() + "-kjar -DkjarVersion=1.0-SNAPSHOT";
+                kjarSettings = "-DkjarGroupId=" + project.getName() + " -DkjarArtifactId=" + project.getName() + "-kjar -DkjarVersion=1.0-SNAPSHOT";
             }
 
             Map<String, Object> params = new HashMap<>();
