@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <link rel="icon" href="img/jbpm_icon.png">
+    <title>jBPM - Build your business application</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="css/jquery-editable-select.min.css">
+    <link rel="stylesheet" href="css/jbpm.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-editable-select.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="container">
+    <div id="topcontent" class="row row-top">
+        <div class="topcontent row d-flex justify-content-center">
+            Build your business application<br/> in just a few seconds!
+        </div>
+        <div class="topcontent row d-flex justify-content-center">
+            <button type="button" class="btn btn-lg btn-primary" style="vertical-align:middle" onclick="generateWithDefaultSettings();">
+                <i class="fas fa-spinner"></i>&nbsp;Generate default business app
+            </button>
+        </div>
+    </div>
+    <div id="bottomcontentconfigapp" class="row row-bottom-config">
+        <form action="#" id="generateForm" method="post" th:action="@{/}" th:object="${project}">
+            <div class="configcontent row d-flex justify-content-center">
+                Configure your business app
+            </div>
+            <div id="app" style="margin-left: 10%; margin-right: 10%;">
+
+                <div v-show="currentstep == 1">
+                    <!--<h1>Select Application Type</h1>-->
+                    <div class="row d-flex justify-content-around">
+                        <div class="middle">
+                            <br/>
+                            <label>
+                                <input type="radio" value="bpm" th:field="*{capabilities}" name="capabilitiesBusinessAutomation" id="capabilitiesBusinessAutomation">
+                                <div class="box">
+                                    <i class="fas fa-cogs fa-4x"></i>
+                                    <span>Business Automation</span>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" value="brm" th:field="*{capabilities}" name="capabilitiesDecisionManagement" id="capabilitiesDecisionManagement">
+                                <div class="box">
+                                    <i class="far fa-lightbulb fa-4x"></i>
+                                    <span>Decision Management</span>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" value="planner" th:field="*{capabilities}" name="capabilitiesBusinessOptimizer" id="capabilitiesBusinessOptimizer">
+                                <div class="box">
+                                    <i class="fas fa-sliders-h fa-4x"></i>
+                                    <span>Business Optimization</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-show="currentstep == 2">
+                    <!--<h1>Enter Application Info</h1>-->
+                    <div>
+                        <div class="form-group">
+                            <label for="appPackage"><strong>* Package Name</strong></label>
+                            <input id="appPackage" type="text" class="form-control" value="business-application" th:field="*{packageName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="appName"><strong>* Application Name</strong></label>
+                            <input id="appName" type="text" class="form-control" value="business-application" th:field="*{name}">
+                        </div>
+                        <div class="form-group">
+                            <label class="my-1 mr-2" for="kieVersion"><strong>* KIE Version</strong></label>
+                            <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
+                                <option value="7.10.0-SNAPSHOT" selected>7.10.0-SNAPSHOT</option>
+                                <option value="7.9.0.Final">7.9.0.Final</option>
+                                <option value="7.8.0.Final">7.8.0.Final</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-show="currentstep == 3">
+                    <!--<h1>Select Application Components</h1>-->
+                    <div class="row d-flex justify-content-around">
+                        <div class="options middle">
+                            <br/>
+                            <label>
+                                <input type="checkbox" value="kjar" th:field="*{options}" name="optionsKjar" id="optionsKjar">
+                                <div class="box">
+                                    <i class="fas fa-lightbulb fa-4x"></i>
+                                    <span>Business Assets</span>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="checkbox" value="model" th:field="*{options}" name="optionsModel" id="optionsModel">
+                                <div class="box">
+                                    <i class="fa fa-sliders-h fa-4x"></i>
+                                    <span>Data model</span>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="checkbox" value="service" th:field="*{options}" name="optionsService" id="optionsService">
+                                <div class="box">
+                                    <i class="fas fa-cogs fa-4x"></i>
+                                    <span>Service</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <step v-for="step in steps" :currentstep="currentstep" :key="step.id" :step="step" :stepcount="steps.length" @step-change="stepChanged">
+                </step>
+
+                <script type="x-template" id="step-navigation-template">
+                    <ol class="step-indicator">
+                        <li v-for="step in steps" is="step-navigation-step" :key="step.id" :step="step" :currentstep="currentstep">
+                        </li>
+                    </ol>
+                </script>
+
+                <script type="x-template" id="step-navigation-step-template">
+                    <li :class="indicatorclass">
+                        <div class="step"><i :class="step.icon_class"></i></div>
+                        <div class="caption hidden-xs hidden-sm">Step <span v-text="step.id"></span>: <span v-text="step.title"></span></div>
+                    </li>
+                </script>
+
+                <script type="x-template" id="step-template">
+                    <div class="step-wrapper" :class="stepWrapperClass"><center>
+                        <button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :disabled="firststep">
+                            <i class="fas fa-times"></i>&nbsp;Cancel
+                        </button>
+                        <!--<button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :disabled="firststep">-->
+                        <!--<i class="fa fa-arrow-left"></i>&nbsp;Back-->
+                        <!--</button>-->
+                        <button type="button" class="btn btn-primary" @click="nextStep" :disabled="laststep">
+                            Next&nbsp;<i class="fa fa-arrow-right"></i>
+                        </button>
+                        <button type="submit" class="btn btn-primary" v-if="laststep">
+                            <i class="fas fa-spinner"></i>&nbsp;Generate business app
+                        </button>
+                    </center></div>
+                </script>
+
+                <step-navigation :steps="steps" :currentstep="currentstep">
+                </step-navigation>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        setFormDefaults();
+
+        $('form#generateForm').submit(function (e) {
+            e.preventDefault();
+            showPleaseWait();
+            this.submit();
+            setTimeout(hidePleaseWait,3000);
+            setFormDefaults();
+            v1.$children[0].firstStep();
+
+
+            setTimeout(openDocsInTab,4000);
+        });
+
+        $("#cancelButton").click(function(){
+            setFormDefaults();
+            v1.$children[0].firstStep();
+        });
+
+    });
+
+    function setFormDefaults() {
+        $('input:checkbox#optionsKjar').prop("checked", true);
+        $('input:checkbox#optionsModel').prop("checked", true);
+        $('input:checkbox#optionsService').prop("checked", true);
+        $('input:radio#capabilitiesBusinessAutomation').prop('checked', 'checked');
+        $('input:text#appPackage').val('com.company');
+        $('input:text#appName').val('business-application');
+        $('#kieVersion').val('7.10.0-SNAPSHOT');
+    }
+
+    function generateWithDefaultSettings() {
+        setFormDefaults();
+        $('form#generateForm').submit();
+
+    }
+
+    function showPleaseWait() {
+        var modalLoading = '<div class="modal" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false" role="dialog">\
+        <div class="modal-dialog">\
+            <div class="modal-content">\
+                <div class="modal-header">\
+                    <h4 class="modal-title">Generating your business app...</h4>\
+                </div>\
+                <div class="modal-body">\
+                    <div class="progress">\
+                      <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"\
+                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; height: 40px">\
+                      </div>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>\
+    </div>';
+        $(document.body).append(modalLoading);
+        $("#pleaseWaitDialog").modal("show");
+    }
+
+    function hidePleaseWait() {
+        $("#pleaseWaitDialog").modal("hide");
+    }
+
+    function openDocsInTab() {
+        var win = window.open('/docs', '_blank');
+        if (win) {
+            win.focus();
+        }
+    }
+
+
+</script>
+<script>
+    Vue.component("step-navigation-step", {
+        template: "#step-navigation-step-template",
+
+        props: ["step", "currentstep"],
+
+        computed: {
+            indicatorclass() {
+                return {
+                    active: this.step.id == this.currentstep,
+                    complete: this.currentstep > this.step.id
+                };
+            }
+        }
+    });
+
+    Vue.component("step-navigation", {
+        template: "#step-navigation-template",
+
+        props: ["steps", "currentstep"]
+    });
+
+    Vue.component("step", {
+        template: "#step-template",
+
+        props: ["step", "stepcount", "currentstep"],
+
+        computed: {
+            active() {
+                return this.step.id == this.currentstep;
+            },
+
+            firststep() {
+                return this.currentstep == 1;
+            },
+
+            laststep() {
+                return this.currentstep == this.stepcount;
+            },
+
+            stepWrapperClass() {
+                return {
+                    active: this.active
+                };
+            }
+        },
+
+        methods: {
+            firstStep() {
+                this.$emit("step-change", 1);
+                setFormDefaults();
+            },
+
+            nextStep() {
+                this.$emit("step-change", this.currentstep + 1);
+            },
+
+            lastStep() {
+                this.$emit("step-change", this.currentstep - 1);
+            }
+        }
+    });
+
+    var v1 = new Vue({
+        el: "#app",
+
+        data: {
+            currentstep: 1,
+
+            steps: [
+                {
+                    id: 1,
+                    title: "Application Type",
+                    icon_class: "fas fa-share-alt"
+                },
+                {
+                    id: 2,
+                    title: "Application Info",
+                    icon_class: "fa fa fa-cog"
+                },
+                {
+                    id: 3,
+                    title: "Application Components",
+                    icon_class: "fa fa-sliders-h"
+                }
+            ]
+        },
+
+        methods: {
+            stepChanged(step) {
+                this.currentstep = step;
+            }
+        }
+    });
+</script>
+</body>
+</html>
