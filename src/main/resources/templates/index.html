@@ -18,19 +18,19 @@
 <body>
 <div id="container">
     <div id="topcontent" class="row row-top">
-        <div class="topcontent row d-flex justify-content-center">
+        <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">
             Build your business application<br/> in just a few seconds!
         </div>
         <div class="topcontent row d-flex justify-content-center">
-            <button type="button" class="btn btn-lg btn-primary" style="vertical-align:middle" onclick="generateWithDefaultSettings();">
-                <i class="fas fa-spinner"></i>&nbsp;Generate default business app
+            <button type="button" class="btn btn-xlarge" style="vertical-align:middle" onclick="generateWithDefaultSettings();">
+                <i class="fas fa-spinner"></i>&nbsp;Generate default business application
             </button>
         </div>
     </div>
     <div id="bottomcontentconfigapp" class="row row-bottom-config">
         <form action="#" id="generateForm" method="post" th:action="@{/}" th:object="${project}">
             <div class="configcontent row d-flex justify-content-center">
-                Configure your business app
+                or configure your application below
             </div>
             <div id="app" style="margin-left: 10%; margin-right: 10%;">
 
@@ -66,7 +66,7 @@
 
                 <div v-show="currentstep == 2">
                     <!--<h1>Enter Application Info</h1>-->
-                    <div>
+                    <div class="w-50 p-3" style="margin-left:auto; margin-right:auto; display:block;">
                         <div class="form-group">
                             <label for="appPackage"><strong>* Package Name</strong></label>
                             <input id="appPackage" type="text" class="form-control" value="business-application" th:field="*{packageName}">
