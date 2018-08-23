@@ -26,10 +26,11 @@ html, body {
 
 .topcontent {
     color: #fff;
-    font-size: 40px;
+    font-size: 35px;
     font-weight: bold;
     text-align: center;
     margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .configcontent {
@@ -38,7 +39,7 @@ html, body {
     font-weight: bold;
     text-align: center;
     margin-top: 1%;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
 }
 
 .topcontentsmall {
@@ -231,10 +232,6 @@ html, body {
 
 }
 
-.middle .box:active {
-    transform: translateY(10px);
-}
-
 .middle .box span {
     position: absolute;
     transform: translate(0, 60px);
@@ -272,5 +269,14 @@ html, body {
     margin: auto;
     width: 500px;
     height: 300px;
+}
+
+.btn-xlarge {
+    padding: 18px 28px;
+    font-size: 22px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
 }
 
