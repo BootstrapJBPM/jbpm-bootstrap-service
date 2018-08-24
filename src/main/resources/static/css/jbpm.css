@@ -20,7 +20,7 @@ html, body {
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
-    height: 30%;
+    height: 40%;
     display: block;
 }
 
@@ -34,7 +34,7 @@ html, body {
 }
 
 .configcontent {
-    color: #4183D7;
+    color: #fff;
     font-size: 30px;
     font-weight: bold;
     text-align: center;
@@ -54,7 +54,7 @@ html, body {
     margin-right: 0px;
     margin-left: 0px;
     width: 100%;
-    height: 70%;
+    height: 60%;
     background-color: white;
     display: none;
 }
@@ -63,7 +63,7 @@ html, body {
     margin-right: 0px;
     margin-left: 0px;
     width: 100%;
-    height: 70%;
+    height: 60%;
     background-color: white;
     display: block;
 }
@@ -272,11 +272,12 @@ html, body {
 }
 
 .btn-xlarge {
+    color: white;
     padding: 18px 28px;
     font-size: 22px;
+    font-color: white;
     line-height: normal;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
 }
-

@@ -22,21 +22,22 @@
             Build your business application<br/> in just a few seconds!
         </div>
         <div class="topcontent row d-flex justify-content-center">
-            <button type="button" class="btn btn-xlarge" style="vertical-align:middle" onclick="generateWithDefaultSettings();">
+            <button type="button" class="btn btn-primary btn-xlarge" style="vertical-align:middle" onclick="generateWithDefaultSettings();">
                 <i class="fas fa-spinner"></i>&nbsp;Generate default business application
             </button>
+        </div>
+        <div class="topcontent row d-flex justify-content-center">
+            or follow few steps to configure your application
         </div>
     </div>
     <div id="bottomcontentconfigapp" class="row row-bottom-config">
         <form action="#" id="generateForm" method="post" th:action="@{/}" th:object="${project}">
-            <div class="configcontent row d-flex justify-content-center">
-                or configure your application below
-            </div>
+
             <div id="app" style="margin-left: 10%; margin-right: 10%;">
 
                 <div v-show="currentstep == 1">
                     <!--<h1>Select Application Type</h1>-->
-                    <div class="row d-flex justify-content-around">
+                    <div class="row d-flex justify-content-around" style="height: 300px;">
                         <div class="middle">
                             <br/>
                             <label>
@@ -66,7 +67,7 @@
 
                 <div v-show="currentstep == 2">
                     <!--<h1>Enter Application Info</h1>-->
-                    <div class="w-50 p-3" style="margin-left:auto; margin-right:auto; display:block;">
+                    <div class="w-50 p-3" style="height: 300px;margin-left:auto; margin-right:auto; display:block;">
                         <div class="form-group">
                             <label for="appPackage"><strong>* Package Name</strong></label>
                             <input id="appPackage" type="text" class="form-control" value="business-application" th:field="*{packageName}">
@@ -78,7 +79,8 @@
                         <div class="form-group">
                             <label class="my-1 mr-2" for="kieVersion"><strong>* KIE Version</strong></label>
                             <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
-                                <option value="7.10.0-SNAPSHOT" selected>7.10.0-SNAPSHOT</option>
+                                <option value="7.10.0-SNAPSHOT">7.10.0-SNAPSHOT</option>
+                                <option value="7.10.0.Final" selected>7.10.0.Final</option>
                                 <option value="7.9.0.Final">7.9.0.Final</option>
                                 <option value="7.8.0.Final">7.8.0.Final</option>
                             </select>
@@ -88,7 +90,7 @@
 
                 <div v-show="currentstep == 3">
                     <!--<h1>Select Application Components</h1>-->
-                    <div class="row d-flex justify-content-around">
+                    <div class="row d-flex justify-content-around" style="height: 300px;">
                         <div class="options middle">
                             <br/>
                             <label>
@@ -135,13 +137,13 @@
 
                 <script type="x-template" id="step-template">
                     <div class="step-wrapper" :class="stepWrapperClass"><center>
-                        <button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :disabled="firststep">
+                        <button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :hidden="firststep">
                             <i class="fas fa-times"></i>&nbsp;Cancel
                         </button>
                         <!--<button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :disabled="firststep">-->
                         <!--<i class="fa fa-arrow-left"></i>&nbsp;Back-->
                         <!--</button>-->
-                        <button type="button" class="btn btn-primary" @click="nextStep" :disabled="laststep">
+                        <button type="button" class="btn btn-primary" @click="nextStep" :hidden="laststep">
                             Next&nbsp;<i class="fa fa-arrow-right"></i>
                         </button>
                         <button type="submit" class="btn btn-primary" v-if="laststep">
