@@ -53,7 +53,7 @@ public class IndexController {
     private static final String CONTAINER_ID = "jbpm-bootstrap-kjar";
     private static final String PROCESS_ID = "GenerateProject";
 
-    private static final String KIE_VERSION = "7.10.0-SNAPSHOT";
+    private static final String KIE_VERSION = System.getProperty("org.kie.version", "7.11.0-SNAPSHOT");
 
     private File parent = new File(System.getProperty("java.io.tmpdir"));
 
@@ -127,7 +127,7 @@ public class IndexController {
 
             String kjarSettings = "";
             if (project.getOptions().contains("kjar")) {
-                kjarSettings = "-DkjarGroupId=" + project.getName() + " -DkjarArtifactId=" + project.getName() + "-kjar -DkjarVersion=1.0-SNAPSHOT";
+                kjarSettings = "-DkjarGroupId=" + project.getPackageName() + " -DkjarArtifactId=" + project.getName() + "-kjar -DkjarVersion=1.0-SNAPSHOT";
             }
 
             Map<String, Object> params = new HashMap<>();
@@ -138,7 +138,7 @@ public class IndexController {
             params.put("kjarSettings",
                        kjarSettings);
             params.put("kieVersion",
-                       project.getVersion());
+                       KIE_VERSION);
             long processInstanceId = processService.startProcess(CONTAINER_ID,
                                                                  PROCESS_ID,
                                                                  params);

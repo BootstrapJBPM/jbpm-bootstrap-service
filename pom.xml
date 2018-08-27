@@ -6,7 +6,7 @@
 
   <groupId>org.jbpm.start</groupId>
   <artifactId>jbpm-bootstrap-service</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
   <name>jBPM :: Bootstrap :: Service</name>
@@ -15,7 +15,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.14.RELEASE</version>
+    <version>1.5.12.RELEASE</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
 
@@ -23,8 +23,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
-    <narayana.version>5.9.0.Final</narayana.version>
-    <kie.version>7.9.0.Final</kie.version> <!-- whenever chaning kie.version update to the same value in org.jbpm.bootstrap.service.rest.ProjectsResource.KIE_VERSION -->
+    <narayana.version>5.8.0.Final</narayana.version>
+    <!-- whenever changing kie.version update to the same value in org.jbpm.bootstrap.service.controllers.IndexController.KIE_VERSION -->
+    <kie.version>7.11.0-SNAPSHOT</kie.version>
     <org.jbpm.start.model.version>1.0.0</org.jbpm.start.model.version>
   </properties>
 
@@ -38,7 +39,7 @@
     <dependency>
       <groupId>org.jbpm.contrib</groupId>
       <artifactId>mavenembedder-workitem</artifactId>
-      <version>7.10.0-SNAPSHOT</version>
+      <version>${kie.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -140,11 +141,14 @@
                         </fileSet>
                         <fileSet>
                           <directory>../jbpm-bootstrap-kjar/target/local-repository/maven</directory>
-                          <outputDirectory>opt/jboss/.m2/repository</outputDirectory>        
+                          <outputDirectory>opt/jboss/.m2/repository</outputDirectory>
                         </fileSet>
                       </inline>
                       <user>jboss:jboss:jboss</user>
                     </assembly>
+                    <env>
+                      <JAVA_OPTIONS>-Dorg.kie.version=7.RELEASE</JAVA_OPTIONS>
+                    </env>
                   </build>
                 </image>
               </images>

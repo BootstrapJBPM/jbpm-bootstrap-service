@@ -58,9 +58,16 @@ else
     echo "No Maven arguments skipping maven build"
 fi
 
-echo "Launching the appliction"
-pattern="*-service"
-files=( $pattern )
-cd ${files[0]}
-executable="$(ls  *target/jbpm*.jar | sort -V | tail -n1)"
-java -jar "$executable"
+if [[ "$@" =~ "docker" ]]; then
+    echo "Launching the application as docker container..."
+    
+    docker run -d -p 8090:8090 --name jbpm-bootstrap jbpm/jbpm-bootstrap-service:1.0.0
+else
+
+	echo "Launching the application locally..."
+	pattern="*-service"
+	files=( $pattern )
+	cd ${files[0]}
+	executable="$(ls  *target/jbpm*.jar | sort -V | tail -n1)"
+	java -jar "$executable"
+fi

@@ -70,16 +70,16 @@
                     <div class="w-50 p-3" style="height: 300px;margin-left:auto; margin-right:auto; display:block;">
                         <div class="form-group">
                             <label for="appPackage"><strong>* Package Name</strong></label>
-                            <input id="appPackage" type="text" class="form-control" value="business-application" th:field="*{packageName}">
+                            <input id="appPackage" type="text" class="form-control" th:field="*{packageName}">
                         </div>
                         <div class="form-group">
                             <label for="appName"><strong>* Application Name</strong></label>
-                            <input id="appName" type="text" class="form-control" value="business-application" th:field="*{name}">
+                            <input id="appName" type="text" class="form-control" th:field="*{name}">
                         </div>
                         <div class="form-group">
                             <label class="my-1 mr-2" for="kieVersion"><strong>* KIE Version</strong></label>
                             <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
-                                <option value="7.10.0-SNAPSHOT">7.10.0-SNAPSHOT</option>
+                                <option value="7.11.0-SNAPSHOT">7.11.0-SNAPSHOT</option>
                                 <option value="7.10.0.Final" selected>7.10.0.Final</option>
                                 <option value="7.9.0.Final">7.9.0.Final</option>
                                 <option value="7.8.0.Final">7.8.0.Final</option>
@@ -94,21 +94,21 @@
                         <div class="options middle">
                             <br/>
                             <label>
-                                <input type="checkbox" value="kjar" th:field="*{options}" name="optionsKjar" id="optionsKjar">
+                                <input type="checkbox" th:value="kjar" th:field="*{options}" name="optionsKjar" id="optionsKjar" onclick="toggle('input:checkbox#optionsKjar', 'kjar');">
                                 <div class="box">
                                     <i class="fas fa-lightbulb fa-4x"></i>
                                     <span>Business Assets</span>
                                 </div>
                             </label>
                             <label>
-                                <input type="checkbox" value="model" th:field="*{options}" name="optionsModel" id="optionsModel">
+                                <input type="checkbox" th:value="model" th:field="*{options}" name="optionsModel" id="optionsModel" onclick="toggle('input:checkbox#optionsModel', 'model');">
                                 <div class="box">
                                     <i class="fa fa-sliders-h fa-4x"></i>
                                     <span>Data model</span>
                                 </div>
                             </label>
                             <label>
-                                <input type="checkbox" value="service" th:field="*{options}" name="optionsService" id="optionsService">
+                                <input type="checkbox" th:value="service" th:field="*{options}" name="optionsService" id="optionsService" onclick="toggle('input:checkbox#optionsService', 'service');">
                                 <div class="box">
                                     <i class="fas fa-cogs fa-4x"></i>
                                     <span>Service</span>
@@ -187,10 +187,13 @@
         $('input:checkbox#optionsKjar').prop("checked", true);
         $('input:checkbox#optionsModel').prop("checked", true);
         $('input:checkbox#optionsService').prop("checked", true);
+        $('input:checkbox#optionsKjar').val("kjar");
+        $('input:checkbox#optionsModel').val("model");
+        $('input:checkbox#optionsService').val("service");
         $('input:radio#capabilitiesBusinessAutomation').prop('checked', 'checked');
         $('input:text#appPackage').val('com.company');
         $('input:text#appName').val('business-application');
-        $('#kieVersion').val('7.10.0-SNAPSHOT');
+        $('#kieVersion').val('7.10.0.Final');
     }
 
     function generateWithDefaultSettings() {
@@ -229,6 +232,14 @@
         if (win) {
             win.focus();
         }
+    }
+    
+    function toggle(item, val) {
+    	if ($(item).prop("checked")) {
+    		$(item).val(val);
+    	} else {
+    		$(item).val('');
+    	}
     }
 
 
