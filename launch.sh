@@ -68,6 +68,6 @@ else
 	pattern="*-service"
 	files=( $pattern )
 	cd ${files[0]}
-	executable="$(ls  *target/jbpm*.jar | sort -V | tail -n1)"
+	executable="$(ls  *target/jbpm*.jar | tail -n1)"
 	java -jar "$executable"
 fi

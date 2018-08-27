@@ -26,7 +26,7 @@
                 <i class="fas fa-spinner"></i>&nbsp;Generate default business application
             </button>
         </div>
-        <div class="topcontent row d-flex justify-content-center">
+        <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 5% !important">
             or follow few steps to configure your application
         </div>
     </div>
@@ -228,18 +228,18 @@
     }
 
     function openDocsInTab() {
-        var win = window.open('/docs', '_blank');
+        var win = window.open('/docs', '_self');
         if (win) {
             win.focus();
         }
     }
-    
+
     function toggle(item, val) {
-    	if ($(item).prop("checked")) {
-    		$(item).val(val);
-    	} else {
-    		$(item).val('');
-    	}
+        if ($(item).prop("checked")) {
+            $(item).val(val);
+        } else {
+            $(item).val('');
+        }
     }
 
 
