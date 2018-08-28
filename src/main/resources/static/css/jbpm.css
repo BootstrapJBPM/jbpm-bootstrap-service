@@ -295,5 +295,9 @@ html, body {
 
 .nextsteps {
     font-size: 20px;
-    color: #4183D7;
+    color: #000000;
 }
+
+ a, a:hover, a:focus {
+     color: #000000;
+ }

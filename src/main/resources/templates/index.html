@@ -36,7 +36,7 @@
             <div id="app" style="margin-left: 10%; margin-right: 10%;">
 
                 <div v-show="currentstep == 1">
-                    <div class="row d-flex justify-content-around" style="height: 300px;">
+                    <div class="row d-flex justify-content-around" style="height: 350px;">
                         <div class="middle">
                             <br/>
                             <label>
@@ -65,7 +65,7 @@
                 </div>
 
                 <div v-show="currentstep == 2">
-                    <div class="w-50 p-3" style="height: 300px;margin-left:auto; margin-right:auto; display:block;">
+                    <div class="w-50 p-3" style="height: 350px;margin-left:auto; margin-right:auto; display:block;">
                         <div class="form-group">
                             <label for="appPackage"><strong>* Package Name</strong></label>
                             <input id="appPackage" type="text" class="form-control" th:field="*{packageName}">
@@ -87,7 +87,7 @@
                 </div>
 
                 <div v-show="currentstep == 3">
-                    <div class="row d-flex justify-content-around" style="height: 300px;">
+                    <div class="row d-flex justify-content-around" style="height: 350px;">
                         <div class="options middle">
                             <br/>
                             <label>
@@ -117,20 +117,28 @@
 
                 <div v-show="currentstep == 4">
 
-                    <div class="row d-flex justify-content-around" style="height: 300px;">
+                    <div class="row d-flex justify-content-around" style="height: 350px;">
                         <div class="middle">
                             <br/>
                             <div class="text-center" style="margin-top: 5px;">
                                 <i class="far fa-check-circle fa-3x img-valign" style="color: green; margin-top: 5px;"></i>&nbsp;&nbsp;
-                                <span class="successtext">Business Application successfully generated!</span>
                             </div>
-                            <div style="margin-top: 2px;text-align: left; margin-left: 30%;">
-                                <span class="nextsteps" style="font-size: 24px;"><strong>How to launch your business application:</strong></span><br/>
-                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">Unzip your apps generated zip file</strong></span><br/>
-                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">Go to your apps service directory</span><br/>
-                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">Execute <strong>launch.sh/bat clean install</strong></span><br/>
-                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">Open browser at <strong>http://localhost:8090</strong></span><br/>
-                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">For more information consult the <a href="https://docs.jboss.org/jbpm/release/7.10.0.Final/jbpm-docs/html_single" target="_blank">docs</a></span><br/>
+                            <div class="text-center" style="margin-top: 5px;">
+                                <span class="successtext" style="color: green;" >Business Application successfully generated!</span>
+                            </div>
+                            <div style="margin-top: 2px;text-align: left; margin-left: 35%;">                                
+                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Unzip generated <strong id="zipName"></strong> file</strong></span><br/>
+                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Go to <strong id="serviceDirName"></strong>  directory</span><br/>
+                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Execute <strong>launch.sh/bat clean install</strong></span><br/>
+                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Open browser at <a href="http://localhost:8090">http://localhost:8090</a></span><br/>                                                                                                
+                            </div>
+                            <div class="text-center" style="margin-top: 5px;">
+                            	<hr style="width: 70%; color: black;"/>
+                            </div>
+                            <div class="text-center" style="margin-top: 5px;">
+                            	<a href="https://docs.jboss.org/jbpm/release/7.10.0.Final/jbpm-docs/html_single" target="_blank">
+                                	<button type="button" class="btn btn-primary"><i class="fas fa-spinner"></i>&nbsp;Read more about business applications</button>
+                                </a>          
                             </div>
                         </div>
                     </div>
@@ -159,19 +167,13 @@
                         <center>
                             <button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :hidden="firstorendstep">
                                 <i class="fas fa-times"></i>&nbsp;Cancel
-                            </button>
-                            <!--<button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :disabled="firststep">-->
-                            <!--<i class="fa fa-arrow-left"></i>&nbsp;Back-->
-                            <!--</button>-->
+                            </button>     
                             <button type="button" class="btn btn-primary" @click="nextStep" :hidden="thirdorendstep">
                                 Next&nbsp;<i class="fa fa-arrow-right"></i>
                             </button>
                             <button type="submit" class="btn btn-primary" v-if="thirdstep">
-                                <i class="fas fa-spinner"></i>&nbsp;Generate business app
-                            </button>
-                            <button type="button" class="btn btn-primary" @click="firstStep" v-if="endstep">
-                                <i class="fas fa-backward"></i>&nbsp;Generate another app
-                            </button>
+                                <i class="fas fa-spinner"></i>&nbsp;Generate business application
+                            </button>                            
                         </center>
                     </div>
                 </script>
@@ -191,6 +193,9 @@
         $('form#generateForm').submit(function (e) {
             e.preventDefault();
             showPleaseWait();
+            
+            $('#zipName').text($('input:text#appName').val() + '.zip');
+        	$('#serviceDirName').text($('input:text#appName').val() + '-service');
             this.submit();
 
             setTimeout(function () {
@@ -198,11 +203,6 @@
                 goToEndStep();
             }, 3000)
             setFormDefaults();
-        });
-
-        $("#cancelButton").click(function () {
-            setFormDefaults();
-            v1.$children[0].firstStep();
         });
 
     });
@@ -226,6 +226,9 @@
 
     function generateWithDefaultSettings() {
         setFormDefaults();
+        $('#zipName').text($('input:text#appName').val() + '.zip');
+        $('#serviceDirName').text($('input:text#appName').val() + '-service');
+        
         $('form#generateForm').submit();
 
     }
