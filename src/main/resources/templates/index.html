@@ -36,7 +36,6 @@
             <div id="app" style="margin-left: 10%; margin-right: 10%;">
 
                 <div v-show="currentstep == 1">
-                    <!--<h1>Select Application Type</h1>-->
                     <div class="row d-flex justify-content-around" style="height: 300px;">
                         <div class="middle">
                             <br/>
@@ -66,7 +65,6 @@
                 </div>
 
                 <div v-show="currentstep == 2">
-                    <!--<h1>Enter Application Info</h1>-->
                     <div class="w-50 p-3" style="height: 300px;margin-left:auto; margin-right:auto; display:block;">
                         <div class="form-group">
                             <label for="appPackage"><strong>* Package Name</strong></label>
@@ -89,7 +87,6 @@
                 </div>
 
                 <div v-show="currentstep == 3">
-                    <!--<h1>Select Application Components</h1>-->
                     <div class="row d-flex justify-content-around" style="height: 300px;">
                         <div class="options middle">
                             <br/>
@@ -118,6 +115,27 @@
                     </div>
                 </div>
 
+                <div v-show="currentstep == 4">
+
+                    <div class="row d-flex justify-content-around" style="height: 300px;">
+                        <div class="middle">
+                            <br/>
+                            <div class="text-center" style="margin-top: 5px;">
+                                <i class="far fa-check-circle fa-3x img-valign" style="color: green; margin-top: 5px;"></i>&nbsp;&nbsp;
+                                <span class="successtext">Business Application successfully generated!</span>
+                            </div>
+                            <div style="margin-top: 2px;text-align: left; margin-left: 30%;">
+                                <span class="nextsteps" style="font-size: 24px;"><strong>How to launch your business application:</strong></span><br/>
+                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">Unzip your apps generated zip file</strong></span><br/>
+                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">Go to your apps service directory</span><br/>
+                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">Execute <strong>launch.sh/bat clean install</strong></span><br/>
+                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">Open browser at <strong>http://localhost:8090</strong></span><br/>
+                                <i class="fas fa-check" style="color: #4183D7;"></i>&nbsp;<span class="nextsteps">For more information consult the <a href="https://docs.jboss.org/jbpm/release/7.10.0.Final/jbpm-docs/html_single" target="_blank">docs</a></span><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <step v-for="step in steps" :currentstep="currentstep" :key="step.id" :step="step" :stepcount="steps.length" @step-change="stepChanged">
                 </step>
 
@@ -131,25 +149,31 @@
                 <script type="x-template" id="step-navigation-step-template">
                     <li :class="indicatorclass">
                         <div class="step"><i :class="step.icon_class"></i></div>
-                        <div class="caption hidden-xs hidden-sm">Step <span v-text="step.id"></span>: <span v-text="step.title"></span></div>
+                        <div class="caption hidden-xs hidden-sm">Step <span v-text="step.id"></span>:
+                            <span v-text="step.title"></span></div>
                     </li>
                 </script>
 
                 <script type="x-template" id="step-template">
-                    <div class="step-wrapper" :class="stepWrapperClass"><center>
-                        <button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :hidden="firststep">
-                            <i class="fas fa-times"></i>&nbsp;Cancel
-                        </button>
-                        <!--<button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :disabled="firststep">-->
-                        <!--<i class="fa fa-arrow-left"></i>&nbsp;Back-->
-                        <!--</button>-->
-                        <button type="button" class="btn btn-primary" @click="nextStep" :hidden="laststep">
-                            Next&nbsp;<i class="fa fa-arrow-right"></i>
-                        </button>
-                        <button type="submit" class="btn btn-primary" v-if="laststep">
-                            <i class="fas fa-spinner"></i>&nbsp;Generate business app
-                        </button>
-                    </center></div>
+                    <div class="step-wrapper" :class="stepWrapperClass">
+                        <center>
+                            <button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :hidden="firstorendstep">
+                                <i class="fas fa-times"></i>&nbsp;Cancel
+                            </button>
+                            <!--<button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :disabled="firststep">-->
+                            <!--<i class="fa fa-arrow-left"></i>&nbsp;Back-->
+                            <!--</button>-->
+                            <button type="button" class="btn btn-primary" @click="nextStep" :hidden="thirdorendstep">
+                                Next&nbsp;<i class="fa fa-arrow-right"></i>
+                            </button>
+                            <button type="submit" class="btn btn-primary" v-if="thirdstep">
+                                <i class="fas fa-spinner"></i>&nbsp;Generate business app
+                            </button>
+                            <button type="button" class="btn btn-primary" @click="firstStep" v-if="endstep">
+                                <i class="fas fa-backward"></i>&nbsp;Generate another app
+                            </button>
+                        </center>
+                    </div>
                 </script>
 
                 <step-navigation :steps="steps" :currentstep="currentstep">
@@ -168,20 +192,24 @@
             e.preventDefault();
             showPleaseWait();
             this.submit();
-            setTimeout(hidePleaseWait,3000);
+
+            setTimeout(function () {
+                hidePleaseWait();
+                goToEndStep();
+            }, 3000)
             setFormDefaults();
-            v1.$children[0].firstStep();
-
-
-            setTimeout(openDocsInTab,4000);
         });
 
-        $("#cancelButton").click(function(){
+        $("#cancelButton").click(function () {
             setFormDefaults();
             v1.$children[0].firstStep();
         });
 
     });
+
+    function goToEndStep() {
+        v1.$children[0].endStep();
+    }
 
     function setFormDefaults() {
         $('input:checkbox#optionsKjar').prop("checked", true);
@@ -225,13 +253,6 @@
 
     function hidePleaseWait() {
         $("#pleaseWaitDialog").modal("hide");
-    }
-
-    function openDocsInTab() {
-        var win = window.open('/docs', '_self');
-        if (win) {
-            win.focus();
-        }
     }
 
     function toggle(item, val) {
@@ -280,8 +301,24 @@
                 return this.currentstep == 1;
             },
 
+            thirdstep() {
+                return this.currentstep == 3;
+            },
+
             laststep() {
                 return this.currentstep == this.stepcount;
+            },
+
+            thirdorendstep() {
+                return this.currentstep == 3 || this.currentstep == 4;
+            },
+
+            firstorendstep() {
+                return this.currentstep == 1 || this.currentstep == 4;
+            },
+
+            endstep() {
+                return this.currentstep == 4;
             },
 
             stepWrapperClass() {
@@ -303,6 +340,10 @@
 
             lastStep() {
                 this.$emit("step-change", this.currentstep - 1);
+            },
+
+            endStep() {
+                this.$emit("step-change", 4);
             }
         }
     });
@@ -328,6 +369,11 @@
                     id: 3,
                     title: "Application Components",
                     icon_class: "fa fa-sliders-h"
+                },
+                {
+                    id: 4,
+                    title: "Launch your Application",
+                    icon_class: "fas fa-play-circle"
                 }
             ]
         },
