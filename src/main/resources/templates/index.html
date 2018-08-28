@@ -32,8 +32,12 @@
     </div>
     <div id="bottomcontentconfigapp" class="row row-bottom-config">
         <form action="#" id="generateForm" method="post" th:action="@{/}" th:object="${project}">
-
-            <div id="app" style="margin-left: 10%; margin-right: 10%;">
+            <div id="app" class="appdiv">
+                <div class="float-right" style="margin: 3px;">
+                    <i class="fa fa-window-close fa-2x" style="color: black;background-color: white;"
+                       title="Reset business app configuration"
+                       onclick="resetAndGoToFirstStep();"></i>&nbsp;&nbsp;
+                </div>
 
                 <div v-show="currentstep == 1">
                     <div class="row d-flex justify-content-around" style="height: 350px;">
@@ -126,18 +130,18 @@
                             <div class="text-center" style="margin-top: 5px;">
                                 <span class="successtext" style="color: green;" >Business Application successfully generated!</span>
                             </div>
-                            <div style="margin-top: 2px;text-align: left; margin-left: 35%;">                                
+                            <div style="text-align: left; margin-left: 35%;">
                                 <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Unzip generated <strong id="zipName"></strong> file</strong></span><br/>
                                 <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Go to <strong id="serviceDirName"></strong>  directory</span><br/>
                                 <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Execute <strong>launch.sh/bat clean install</strong></span><br/>
                                 <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Open browser at <a href="http://localhost:8090">http://localhost:8090</a></span><br/>                                                                                                
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
-                            	<hr style="width: 70%; color: black;"/>
+                                <hr style="width: 70%; color: #4682B4;"/>
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
                             	<a href="https://docs.jboss.org/jbpm/release/7.10.0.Final/jbpm-docs/html_single" target="_blank">
-                                	<button type="button" class="btn btn-primary"><i class="fas fa-spinner"></i>&nbsp;Read more about business applications</button>
+                                	<button type="button" class="btn btn-primary btn-lg"><i class="fa fa-info-circle"></i>&nbsp;Read more about business applications</button>
                                 </a>          
                             </div>
                         </div>
@@ -165,9 +169,9 @@
                 <script type="x-template" id="step-template">
                     <div class="step-wrapper" :class="stepWrapperClass">
                         <center>
-                            <button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :hidden="firstorendstep">
-                                <i class="fas fa-times"></i>&nbsp;Cancel
-                            </button>     
+                            <!--<button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :hidden="firstorendstep">-->
+                                <!--<i class="fas fa-times"></i>&nbsp;Cancel-->
+                            <!--</button>     -->
                             <button type="button" class="btn btn-primary" @click="nextStep" :hidden="thirdorendstep">
                                 Next&nbsp;<i class="fa fa-arrow-right"></i>
                             </button>
@@ -266,6 +270,11 @@
         }
     }
 
+    function resetAndGoToFirstStep() {
+        setFormDefaults();
+        v1.$children[0].firstStep();
+    }
+
 
 </script>
 <script>
@@ -278,7 +287,7 @@
             indicatorclass() {
                 return {
                     active: this.step.id == this.currentstep,
-                    complete: this.currentstep > this.step.id
+                    complete: this.currentstep == 4 || (this.currentstep > this.step.id)
                 };
             }
         }

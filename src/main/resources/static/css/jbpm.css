@@ -301,3 +301,7 @@ html, body {
  a, a:hover, a:focus {
      color: #000000;
  }
+
+ .appdiv {
+     border: 1px solid #4682B4;
+ }
