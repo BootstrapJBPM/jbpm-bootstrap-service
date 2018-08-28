@@ -63,11 +63,6 @@ public class IndexController {
     @Autowired
     private ProcessService processService;
 
-    @GetMapping("/docs")
-    public String showDocs(Model model) {
-        return "docs";
-    }
-
     @GetMapping("/")
     public String showIndex(Model model) {
         return "index";
