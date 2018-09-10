@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<link rel="icon" href="img/jbpm_icon.png">
+<title>jBPM - Build your business application</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="css/jquery-editable-select.min.css">
+<link rel="stylesheet" href="css/jbpm.css">
+<link rel="stylesheet" href="css/c3.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-editable-select.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/d3.v5.min.js" charset="utf-8"></script>
+<script src="js/c3.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div class="row" style="width: 70%; margin-left: 15%">
+			<div class="col-sm-12 text-center">
+				<h2>Reports for generated applications via start.jbpm.org</h2>
+			</div>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<div class="row" style="width: 70%; margin-left: 15%">
+			<div class="col-sm-4">
+				<div class="card text-center" style="width: 25rem;">
+					<div class="card-header">Total generated applications</div>
+					<div class="card-body">
+						<p class="card-text text-center">
+							<b><span id="totalApps"></span></b>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card text-center" style="width: 25rem;">
+					<div class="card-header">Generated applications today</div>
+					<div class="card-body">
+						<p class="card-text text-center">
+							<b><span id="todayApps"></span></b>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card text-center" style="width: 25rem;">
+					<div class="card-header">Generation errors</div>
+					<div class="card-body">
+						<p class="card-text text-center">
+							<b><span id="totalErrors"></span></b>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<div class="row" style="width: 70%; margin-left: 15%">
+			<div class="col-sm-12 text-center">
+				<h3>Charts for generated business applications</h3>
+			</div>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<div class="row" style="width: 70%; margin-left: 15%">
+
+			<div class="col-sm-6">
+				<div id="chart-recent-per-day"></div>
+			</div>
+
+			<div class="col-sm-6">
+				<div id="chart-per-type"></div>
+			</div>
+
+		</div>
+	</div>
+
+	<script>
+	
+		function loadBarChart(apps, dates) {
+			var bchart = c3.generate({
+				bindto : '#chart-recent-per-day',
+				data : {
+					columns : [ apps ],
+					type : 'bar'
+				},
+			    axis: {
+			        x: {
+			            type: 'category',
+			            categories: dates
+			        }
+			    }
+			});
+		}
+
+		function loadPieChart(ba, dm, bo) {
+			var pchart = c3.generate({
+				bindto : '#chart-per-type',
+				data : {
+					// iris data from R
+					columns : [ [ 'Business Automation', ba ],
+							[ 'Decision Management', dm ],
+							[ 'Business Optimisation', bo ] ],
+					type : 'pie'
+				}
+			});
+		}
+		
+		$(document).ready(function () {
+			$.get(window.location.protocol + "//" + window.location.host + "/rest/reports/stats", function(data, status){
+				
+					$('#totalApps').text(data[0]);
+					$('#todayApps').text(data[1]);
+					$('#totalErrors').text(data[2]);
+				
+		    });
+			
+			$.get(window.location.protocol + "//" + window.location.host + "/rest/reports/types", function(data, status){
+				
+				
+					loadPieChart(data['bpm'], data['brm'], data['planner']);
+				
+		    });
+			
+			$.get(window.location.protocol + "//" + window.location.host + "/rest/reports/apps", function(data, status){
+				
+					var apps = data['apps'];
+					apps.unshift('Number of generated applications');
+					
+					var dates = data['dates'];
+				
+					loadBarChart(apps, dates);
+				
+		    });
+
+	    });
+	</script>
+
+
+</body>
+</html>

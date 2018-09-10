@@ -1,0 +1,17 @@
+[{
+  "query-name" : "jbpmBootstrapProcessInstances",
+  "query-source" : "${org.kie.server.persistence.ds}",
+  "query-expression" : "select log.processInstanceId, log.processId, FORMATDATETIME(log.start_date, 'yyyy-MM-dd') as start_date, log.end_date, log.status from ProcessInstanceLog log ",
+  "query-target" : "CUSTOM"
+}, {
+  "query-name" : "jbpmBootstrapExecutionErrorList",
+  "query-source" : "${org.kie.server.persistence.ds}",
+  "query-expression" : "select eri.ERROR_ID from ExecutionErrorInfo eri ",
+  "query-target" : "CUSTOM"
+},
+{
+  "query-name" : "jbpmBootstrapProcessInstancesByVar",
+  "query-source" : "${org.kie.server.persistence.ds}",
+  "query-expression" : "select vil.processInstanceId, vil.processId, vil.id, vil.variableId, vil.value from VariableInstanceLog vil",
+  "query-target" : "CUSTOM"
+}]

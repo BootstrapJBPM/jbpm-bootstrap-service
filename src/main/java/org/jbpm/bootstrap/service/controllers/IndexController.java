@@ -17,19 +17,16 @@ package org.jbpm.bootstrap.service.controllers;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import javax.mail.internet.MimeUtility;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.StreamingOutput;
 
 import org.apache.commons.io.IOUtils;
 import org.jbpm.bootstrap.model.Project;
 import org.jbpm.services.api.ProcessService;
-import org.kie.server.springboot.autoconfiguration.KieServerAutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +40,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.Arrays;
 
 @Controller
 public class IndexController {
@@ -53,12 +49,9 @@ public class IndexController {
     private static final String CONTAINER_ID = "jbpm-bootstrap-kjar";
     private static final String PROCESS_ID = "GenerateProject";
 
-    private static final String KIE_VERSION = System.getProperty("org.kie.version", "7.11.0-SNAPSHOT");
+    private static final String KIE_VERSION = System.getProperty("org.kie.version", "7.12.0-SNAPSHOT");
 
     private File parent = new File(System.getProperty("java.io.tmpdir"));
-
-    @Autowired
-    private KieServerAutoConfiguration serverConfiguration;
 
     @Autowired
     private ProcessService processService;
@@ -66,6 +59,11 @@ public class IndexController {
     @GetMapping("/")
     public String showIndex(Model model) {
         return "index";
+    }
+    
+    @GetMapping("/reports")
+    public String showReports(Model model) {
+        return "reports";
     }
 
     @ModelAttribute("project")
@@ -75,7 +73,7 @@ public class IndexController {
 
     @PostMapping(value = "/", produces = {"application/octet-stream"})
     public @ResponseBody
-    ResponseEntity buildApp(@ModelAttribute Project project) {
+    ResponseEntity<?> buildApp(@ModelAttribute Project project) {
         if (project == null) {
             logger.error("Project is missing");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -147,15 +145,6 @@ public class IndexController {
                         (System.currentTimeMillis() - timestamp));
             input = new FileInputStream(generatedProject);
 
-            StreamingOutput entity = new StreamingOutput() {
-
-                @Override
-                public void write(OutputStream output) throws IOException, WebApplicationException {
-                    output.write(IOUtils.toByteArray(input));
-                    input.close();
-                }
-            };
-
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Disposition",
                         "attachment; filename=\"" + fileName + "\"");
@@ -200,7 +189,7 @@ public class IndexController {
                     Thread.sleep(200);
                     totalWaitTime += 200;
 
-                    if (totalWaitTime > 20000) {
+                    if (totalWaitTime > 60000) {
                         throw new RuntimeException("Timeout while waiting for generated project");
                     }
                     continue;

@@ -22,15 +22,63 @@
             Build your business application<br/> in just a few seconds!
         </div>
         <div class="topcontent row d-flex justify-content-center">
-            <button type="button" class="btn btn-primary btn-xlarge" style="vertical-align:middle" onclick="generateWithDefaultSettings();">
+            <button type="button" class="btn btn-primary btn-xlarge" style="vertical-align:middle; width: 600px;" onclick="generateWithDefaultSettings();">
                 <i class="fas fa-spinner"></i>&nbsp;Generate default business application
             </button>
         </div>
         <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 5% !important">
-            or follow few steps to configure your application
+            <button type="button" class="btn btn-secondary btn-xlarge" style="vertical-align:middle; width: 600px" onclick="toogleConfiguration();">
+                <i class="fas fa-sliders-h"></i>&nbsp;or follow few steps to configure your application
+            </button>
         </div>
     </div>
-    <div id="bottomcontentconfigapp" class="row row-bottom-config">
+    <div id="description" class="row row-bottom-config">
+     <br/>
+     <br/>
+     <br/>
+     <div class="row" style="width: 70%; margin-left: 15%">
+        <div class="col-sm-4">
+          <div class="card text-center" style="width: 25rem;">
+            <div class="card-header">
+              Configure
+            </div>
+            <i class="fa fa-sliders-h" style="color: grey; font-size: 150px;"></i>
+            <div class="card-body">
+              <p class="card-text text-center"><b>Configure application</b></p>
+              <p class="card-text text-center">Add features and capabilities</p>
+              <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary">Learn how to configure application</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card text-center" style="width: 25rem;">
+            <div class="card-header">
+              Run
+            </div>
+            <i class="fa fa-play-circle" style="color: grey; font-size: 150px;"></i>
+            <div class="card-body">
+              <p class="card-text text-center"><b>Run your application</b></p>
+              <p class="card-text text-center">development and production mode</p>
+              <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_run_business_application" class="btn btn-primary">Learn how to run application</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card text-center" style="width: 25rem;">
+            <div class="card-header">
+              Deploy
+            </div>
+            <i class="fa fa-cogs" style="color: grey; font-size: 150px;"></i>
+            <div class="card-body">
+              <p class="card-text text-center"><b>Deploy your application to cloud</b></p>
+              <p class="card-text text-center">Docker, OpenShift</p>
+              <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_deploy_business_application" class="btn btn-primary">Learn how to deploy application</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="bottomcontentconfigapp" class="row row-bottom-config" style="display:none;">
         <form action="#" id="generateForm" method="post" th:action="@{/}" th:object="${project}">
             <div id="app" class="appdiv">
                 <div class="float-right" style="margin: 3px;">
@@ -44,21 +92,21 @@
                         <div class="middle">
                             <br/>
                             <label>
-                                <input type="radio" value="bpm" th:field="*{capabilities}" name="capabilitiesBusinessAutomation" id="capabilitiesBusinessAutomation">
+                                <input type="radio" value="bpm" th:field="*{capabilities}" name="capabilitiesBusinessAutomation" id="capabilitiesBusinessAutomation" onclick="toggle('input:radio#capabilitiesBusinessAutomation', 'bpm');">
                                 <div class="box">
                                     <i class="fas fa-cogs fa-4x"></i>
                                     <span>Business Automation</span>
                                 </div>
                             </label>
                             <label>
-                                <input type="radio" value="brm" th:field="*{capabilities}" name="capabilitiesDecisionManagement" id="capabilitiesDecisionManagement">
+                                <input type="radio" value="brm" th:field="*{capabilities}" name="capabilitiesDecisionManagement" id="capabilitiesDecisionManagement" onclick="toggle('input:radio#capabilitiesDecisionManagement', 'brm');">
                                 <div class="box">
                                     <i class="far fa-lightbulb fa-4x"></i>
                                     <span>Decision Management</span>
                                 </div>
                             </label>
                             <label>
-                                <input type="radio" value="planner" th:field="*{capabilities}" name="capabilitiesBusinessOptimizer" id="capabilitiesBusinessOptimizer">
+                                <input type="radio" value="planner" th:field="*{capabilities}" name="capabilitiesBusinessOptimizer" id="capabilitiesBusinessOptimizer" onclick="toggle('input:radio#capabilitiesBusinessOptimizer', 'planner');">
                                 <div class="box">
                                     <i class="fas fa-sliders-h fa-4x"></i>
                                     <span>Business Optimization</span>
@@ -81,8 +129,9 @@
                         <div class="form-group">
                             <label class="my-1 mr-2" for="kieVersion"><strong>* KIE Version</strong></label>
                             <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
-                                <option value="7.11.0-SNAPSHOT">7.11.0-SNAPSHOT</option>
-                                <option value="7.10.0.Final" selected>7.10.0.Final</option>
+                                <option value="7.12.0-SNAPSHOT">7.12.0-SNAPSHOT</option>
+                                <option value="7.11.0.Final" selected>7.11.0.Final</option>
+                                <option value="7.10.0.Final">7.10.0.Final</option>
                                 <option value="7.9.0.Final">7.9.0.Final</option>
                                 <option value="7.8.0.Final">7.8.0.Final</option>
                             </select>
@@ -134,15 +183,15 @@
                                 <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Unzip generated <strong id="zipName"></strong> file</strong></span><br/>
                                 <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Go to <strong id="serviceDirName"></strong>  directory</span><br/>
                                 <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Execute <strong>launch.sh/bat clean install</strong></span><br/>
-                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Open browser at <a href="http://localhost:8090">http://localhost:8090</a></span><br/>                                                                                                
+                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Open browser at <a href="http://localhost:8090">http://localhost:8090</a></span><br/>
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
                                 <hr style="width: 70%; color: #4682B4;"/>
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
-                            	<a href="https://docs.jboss.org/jbpm/release/7.10.0.Final/jbpm-docs/html_single" target="_blank">
+                            	<a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_businessappoverview" target="_blank">
                                 	<button type="button" class="btn btn-primary btn-lg"><i class="fa fa-info-circle"></i>&nbsp;Read more about business applications</button>
-                                </a>          
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -177,7 +226,7 @@
                             </button>
                             <button type="submit" class="btn btn-primary" v-if="thirdstep">
                                 <i class="fas fa-spinner"></i>&nbsp;Generate business application
-                            </button>                            
+                            </button>
                         </center>
                     </div>
                 </script>
@@ -197,7 +246,7 @@
         $('form#generateForm').submit(function (e) {
             e.preventDefault();
             showPleaseWait();
-            
+
             $('#zipName').text($('input:text#appName').val() + '.zip');
         	$('#serviceDirName').text($('input:text#appName').val() + '-service');
             this.submit();
@@ -213,6 +262,8 @@
 
     function goToEndStep() {
         v1.$children[0].endStep();
+        var bottomcontentconfigapp = document.getElementById('bottomcontentconfigapp');
+        bottomcontentconfigapp.style.display = 'block';
     }
 
     function setFormDefaults() {
@@ -225,16 +276,29 @@
         $('input:radio#capabilitiesBusinessAutomation').prop('checked', 'checked');
         $('input:text#appPackage').val('com.company');
         $('input:text#appName').val('business-application');
-        $('#kieVersion').val('7.10.0.Final');
+        $('#kieVersion').val('7.11.0.Final');
     }
 
     function generateWithDefaultSettings() {
         setFormDefaults();
         $('#zipName').text($('input:text#appName').val() + '.zip');
         $('#serviceDirName').text($('input:text#appName').val() + '-service');
-        
+
         $('form#generateForm').submit();
 
+        var description = document.getElementById('description');
+        description.style.display = 'none';
+
+    }
+
+    function toogleConfiguration() {
+      var bottomcontentconfigapp = document.getElementById('bottomcontentconfigapp');
+      var description = document.getElementById('description');
+
+      if (bottomcontentconfigapp.style.display == 'none') {
+        bottomcontentconfigapp.style.display = 'block';
+        description.style.display = 'none';
+      }
     }
 
     function showPleaseWait() {
@@ -273,6 +337,8 @@
     function resetAndGoToFirstStep() {
         setFormDefaults();
         v1.$children[0].firstStep();
+        document.getElementById('bottomcontentconfigapp').style.display = 'none';
+        document.getElementById('description').style.display = 'block';
     }
 
 
