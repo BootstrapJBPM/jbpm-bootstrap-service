@@ -16,21 +16,21 @@ html, body {
 .row-top {
     margin-right: 0px;
     margin-left: 0px;
-    background-image: url(../img/bg-masthead.png);
+    background-image: url(../img/bgimage.png);
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
-    height: 40%;
+    height: 45%;
     display: block;
 }
 
 .topcontent {
-    color: #fff;
-    font-size: 35px;
+    color: #007bff;
+    font-size: 32px;
     font-weight: bold;
     text-align: center;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
 }
 
 .configcontent {
@@ -305,3 +305,24 @@ html, body {
  .appdiv {
      border: 1px solid #4682B4;
  }
+
+ .button-primary-inverse {
+     color: #007bff !important;
+     background-color: #fff !important;
+     border-color: #007bff !important;
+ }
+
+.topbackground {
+    background-color: rgba(255,255,255, 0.8);
+    color: inherit;
+}
+
+.btn-glyphicon {
+    padding:8px;
+    background:#ffffff;
+    margin-right:4px;
+}
+.icon-btn {
+    padding: 1px 15px 3px 2px;
+    border-radius:50px;
+}

@@ -18,65 +18,70 @@
 <body>
 <div id="container">
     <div id="topcontent" class="row row-top">
-        <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">
-            Build your business application<br/> in just a few seconds!
-        </div>
-        <div class="topcontent row d-flex justify-content-center">
-            <button type="button" class="btn btn-primary btn-xlarge" style="vertical-align:middle; width: 600px;" onclick="generateWithDefaultSettings();">
-                <i class="fas fa-spinner"></i>&nbsp;Generate default business application
-            </button>
-        </div>
-        <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 5% !important">
-            <button type="button" class="btn btn-secondary btn-xlarge" style="vertical-align:middle; width: 600px" onclick="toogleConfiguration();">
-                <i class="fas fa-sliders-h"></i>&nbsp;or follow few steps to configure your application
-            </button>
-        </div>
+        <center>
+            <div class="card topbackground" style="width: 50%;margin-top: 2%;">
+                <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">
+                    Build your business application<br/> in just a few seconds!
+                </div>
+                <div class="topcontent row d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary btn-lg" style="vertical-align: middle; text-align: left; width: 350px;" onclick="generateWithDefaultSettings();">
+                        <i class="fas fa-spinner"></i>&nbsp;Generate default business application
+                    </button>
+                </div>
+                <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 5% !important">
+                    <button type="button" class="btn button-primary-inverse btn-lg" style="vertical-align: middle;text-align: left;width: 350px;" onclick="toogleConfiguration();">
+                        <i class="fas fa-sliders-h"></i>&nbsp;Configure your business application
+                    </button>
+                </div>
+            </div>
+        </center>
     </div>
     <div id="description" class="row row-bottom-config">
-     <br/>
-     <br/>
-     <br/>
-     <div class="row" style="width: 70%; margin-left: 15%">
-        <div class="col-sm-4">
-          <div class="card text-center" style="width: 25rem;">
-            <div class="card-header">
-              Configure
+        <br/>
+        <br/>
+        <div class="row" style="width: 70%; margin-left: 15%">
+            <div class="card-deck">
+                <div class="card mb-4">
+                    <div class="view overlay">
+                        <img class="card-img-top" src="img/configure.jpg" alt="Configure your application" style="height: 170px;">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Configure</h4>
+                        <p class="card-text">Configure your application, add features and capabilities.</p>
+                        <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary">Learn how!</a>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="view overlay">
+                        <img class="card-img-top" src="img/run.jpg" alt="Run your application" style="height: 170px;>
+                        <a href=" #!">
+                        <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Run</h4>
+                        <p class="card-text">Run your application in development and production mode.</p>
+                        <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_run_business_application" class="btn btn-primary">Learn how!</a>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="view overlay">
+                        <img class="card-img-top" src="img/cloud.png" alt="Deploy your application" style="height: 170px;>
+                        <a href=" #!">
+                        <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Deploy</h4>
+                        <p class="card-text">Deploy your application to Cloud (Docker, OpenShift, etc).</p>
+                        <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_deploy_business_application" class="btn btn-primary">Learn how!</a>
+                    </div>
+                </div>
             </div>
-            <i class="fa fa-sliders-h" style="color: grey; font-size: 150px;"></i>
-            <div class="card-body">
-              <p class="card-text text-center"><b>Configure application</b></p>
-              <p class="card-text text-center">Add features and capabilities</p>
-              <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary">Learn how to configure application</a>
-            </div>
-          </div>
         </div>
-        <div class="col-sm-4">
-          <div class="card text-center" style="width: 25rem;">
-            <div class="card-header">
-              Run
-            </div>
-            <i class="fa fa-play-circle" style="color: grey; font-size: 150px;"></i>
-            <div class="card-body">
-              <p class="card-text text-center"><b>Run your application</b></p>
-              <p class="card-text text-center">development and production mode</p>
-              <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_run_business_application" class="btn btn-primary">Learn how to run application</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card text-center" style="width: 25rem;">
-            <div class="card-header">
-              Deploy
-            </div>
-            <i class="fa fa-cogs" style="color: grey; font-size: 150px;"></i>
-            <div class="card-body">
-              <p class="card-text text-center"><b>Deploy your application to cloud</b></p>
-              <p class="card-text text-center">Docker, OpenShift</p>
-              <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_deploy_business_application" class="btn btn-primary">Learn how to deploy application</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <div id="bottomcontentconfigapp" class="row row-bottom-config" style="display:none;">
         <form action="#" id="generateForm" method="post" th:action="@{/}" th:object="${project}">
@@ -88,7 +93,7 @@
                 </div>
 
                 <div v-show="currentstep == 1">
-                    <div class="row d-flex justify-content-around" style="height: 350px;">
+                    <div class="row d-flex justify-content-around" style="height: 300px;">
                         <div class="middle">
                             <br/>
                             <label>
@@ -117,7 +122,7 @@
                 </div>
 
                 <div v-show="currentstep == 2">
-                    <div class="w-50 p-3" style="height: 350px;margin-left:auto; margin-right:auto; display:block;">
+                    <div class="w-50 p-3" style="height: 300px;margin-left:auto; margin-right:auto; display:block;">
                         <div class="form-group">
                             <label for="appPackage"><strong>* Package Name</strong></label>
                             <input id="appPackage" type="text" class="form-control" th:field="*{packageName}">
@@ -140,7 +145,7 @@
                 </div>
 
                 <div v-show="currentstep == 3">
-                    <div class="row d-flex justify-content-around" style="height: 350px;">
+                    <div class="row d-flex justify-content-around" style="height: 300px;">
                         <div class="options middle">
                             <br/>
                             <label>
@@ -177,7 +182,7 @@
                                 <i class="far fa-check-circle fa-3x img-valign" style="color: green; margin-top: 5px;"></i>&nbsp;&nbsp;
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
-                                <span class="successtext" style="color: green;" >Business Application successfully generated!</span>
+                                <span class="successtext" style="color: green;">Business Application successfully generated!</span>
                             </div>
                             <div style="text-align: left; margin-left: 35%;">
                                 <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Unzip generated <strong id="zipName"></strong> file</strong></span><br/>
@@ -189,8 +194,10 @@
                                 <hr style="width: 70%; color: #4682B4;"/>
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
-                            	<a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_businessappoverview" target="_blank">
-                                	<button type="button" class="btn btn-primary btn-lg"><i class="fa fa-info-circle"></i>&nbsp;Read more about business applications</button>
+                                <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_businessappoverview" target="_blank">
+                                    <button type="button" class="btn btn-primary btn-lg">
+                                        <i class="fa fa-info-circle"></i>&nbsp;Read more about business applications
+                                    </button>
                                 </a>
                             </div>
                         </div>
@@ -219,7 +226,7 @@
                     <div class="step-wrapper" :class="stepWrapperClass">
                         <center>
                             <!--<button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :hidden="firstorendstep">-->
-                                <!--<i class="fas fa-times"></i>&nbsp;Cancel-->
+                            <!--<i class="fas fa-times"></i>&nbsp;Cancel-->
                             <!--</button>     -->
                             <button type="button" class="btn btn-primary" @click="nextStep" :hidden="thirdorendstep">
                                 Next&nbsp;<i class="fa fa-arrow-right"></i>
@@ -243,12 +250,14 @@
     $(document).ready(function () {
         setFormDefaults();
 
+        $('#kieVersion').editableSelect();
+
         $('form#generateForm').submit(function (e) {
             e.preventDefault();
             showPleaseWait();
 
             $('#zipName').text($('input:text#appName').val() + '.zip');
-        	$('#serviceDirName').text($('input:text#appName').val() + '-service');
+            $('#serviceDirName').text($('input:text#appName').val() + '-service');
             this.submit();
 
             setTimeout(function () {
@@ -292,13 +301,13 @@
     }
 
     function toogleConfiguration() {
-      var bottomcontentconfigapp = document.getElementById('bottomcontentconfigapp');
-      var description = document.getElementById('description');
+        var bottomcontentconfigapp = document.getElementById('bottomcontentconfigapp');
+        var description = document.getElementById('description');
 
-      if (bottomcontentconfigapp.style.display == 'none') {
-        bottomcontentconfigapp.style.display = 'block';
-        description.style.display = 'none';
-      }
+        if (bottomcontentconfigapp.style.display == 'none') {
+            bottomcontentconfigapp.style.display = 'block';
+            description.style.display = 'none';
+        }
     }
 
     function showPleaseWait() {
