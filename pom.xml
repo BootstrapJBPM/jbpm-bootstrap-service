@@ -147,7 +147,7 @@
                       <user>jboss:jboss:jboss</user>
                     </assembly>
                     <env>
-                      <JAVA_OPTIONS>-Dorg.kie.version=7.RELEASE</JAVA_OPTIONS>
+                      <JAVA_OPTIONS>-Dorg.kie.version=7.RELEASE -Dspring.profiles.active=docker</JAVA_OPTIONS>
                     </env>
                   </build>
                 </image>
