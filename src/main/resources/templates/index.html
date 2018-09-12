@@ -19,20 +19,24 @@
 <div id="container">
     <div id="topcontent" class="row row-top">
         <center>
-            <div class="card topbackground" style="width: 50%;margin-top: 2%;">
+            <div class="card topbackground">
                 <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">
                     Build your business application<br/> in just a few seconds!
                 </div>
+                <p>
                 <div class="topcontent row d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary btn-lg" style="vertical-align: middle; text-align: left; width: 350px;" onclick="generateWithDefaultSettings();">
-                        <i class="fas fa-spinner"></i>&nbsp;Generate default business application
+                    <button type="button" class="btn btn-primary btn-lg" style="vertical-align: middle; text-align: left; width: 400px;" onclick="generateWithDefaultSettings();">
+                        <i class="fas fa-spinner"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Generate default business application</strong>
                     </button>
                 </div>
+                </p>
+                <p>
                 <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 5% !important">
-                    <button type="button" class="btn button-primary-inverse btn-lg" style="vertical-align: middle;text-align: left;width: 350px;" onclick="toogleConfiguration();">
-                        <i class="fas fa-sliders-h"></i>&nbsp;Configure your business application
+                    <button type="button" class="btn btn-secondary btn-lg" style="vertical-align: middle;text-align: left;width: 400px;" onclick="toogleConfiguration();">
+                        <i class="fas fa-sliders-h"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Configure your business application</strong>
                     </button>
                 </div>
+                </p>
             </div>
         </center>
     </div>
@@ -48,7 +52,7 @@
                             <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body jbpm-card-body">
                         <h4 class="card-title">Configure</h4>
                         <p class="card-text">Configure your application, add features and capabilities.</p>
                         <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary">Learn how!</a>
@@ -85,7 +89,7 @@
     </div>
     <div id="bottomcontentconfigapp" class="row row-bottom-config" style="display:none;">
         <form action="#" id="generateForm" method="post" th:action="@{/}" th:object="${project}">
-            <div id="app" class="appdiv">
+            <div id="app">
                 <div class="float-right" style="margin: 3px;">
                     <i class="fa fa-window-close fa-2x" style="color: black;background-color: white;"
                        title="Reset business app configuration"
@@ -244,6 +248,13 @@
 
         </form>
     </div>
+    <p/><p/><p/><p>
+    <footer class="page-footer font-small jbpmfooter">
+        <div class="text-center py-3">&nbsp;<img src="img/jbpm_icon.png" alt="jBPM">&nbsp;Powered by
+            <a href="http://jbpm.org" target="_blank">jBPM</a>
+        </div>
+    </footer>
+    </p>
 </div>
 
 <script>

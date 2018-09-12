@@ -25,7 +25,7 @@ html, body {
 }
 
 .topcontent {
-    color: #007bff;
+    color: #000;
     font-size: 32px;
     font-weight: bold;
     text-align: center;
@@ -171,7 +171,6 @@ html, body {
 }
 
 .middle h1 {
-    font-family: varela round, sans-serif;
     color: #fff;
 }
 
@@ -222,7 +221,6 @@ html, body {
     text-align: center;
     cursor: pointer;
     position: relative;
-    font-family: varela round, sans-serif;
     font-size: 12px;
     border-radius: 25px;
     border: 1px solid #4682B4;
@@ -245,7 +243,6 @@ html, body {
 
 .middle .box span:before {
     font-size: 1.2em;
-    font-family: varela round, sans-serif;
     display: block;
     transform: translateY(-80px);
     opacity: 0;
@@ -256,7 +253,6 @@ html, body {
 
 .middle p {
     color: #fff;
-    font-family: varela round, sans-serif;
     font-size: 12px;
 }
 
@@ -313,8 +309,11 @@ html, body {
  }
 
 .topbackground {
-    background-color: rgba(255,255,255, 0.8);
+    background-color: rgba(255,255,255, 0.3);
     color: inherit;
+    width: 50%;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
 }
 
 .btn-glyphicon {
@@ -325,4 +324,22 @@ html, body {
 .icon-btn {
     padding: 1px 15px 3px 2px;
     border-radius:50px;
+}
+
+.jbpmfooter {
+    border: 1px solid rgba(0,0,0,.125);
+    color: #000;
+}
+
+.btn-round-lg{
+    border-radius: 22.5px;
+}
+.btn-round{
+    border-radius: 17px;
+}
+.btn-round-sm{
+    border-radius: 15px;
+}
+
+.jbpm-card-body{
 }
