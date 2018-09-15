@@ -51,6 +51,15 @@ public class ZipArchiveWorkItemHandler implements WorkItemHandler {
         zipIt(sourceDirectory, archivePath, fileList);
         logger.debug("Zip created successfully and stored at {}", archivePath);
         
+        // create empty marker file to make sure zip is completely stored 
+        // on file system before it can be streamed back to client
+        File file = new File(sourceDirectory, archiveName + ".marker");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
         manager.completeWorkItem(workItem.getId(), null);
     }
 

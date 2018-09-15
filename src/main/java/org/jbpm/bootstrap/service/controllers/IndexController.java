@@ -138,7 +138,7 @@ public class IndexController {
 
             generatedProject = new File(tempFolder,
                                         fileName);
-            waitForGeneratedProject(generatedProject);
+            waitForGeneratedProject(new File(tempFolder, project.getName() + ".marker"));
 
             logger.info("Project generation via process with instance id {} done in {} ms",
                         processInstanceId,
