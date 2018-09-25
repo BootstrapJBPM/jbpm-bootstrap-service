@@ -175,7 +175,7 @@
       </activation>
 
       <properties>
-        <fabric8.mode>openshift</fabric8.mode>
+        <fabric8.mode>kubernetes</fabric8.mode>
       </properties>
 
       <build>
@@ -184,8 +184,59 @@
             <groupId>io.fabric8</groupId>
             <artifactId>fabric8-maven-plugin</artifactId>
             <version>3.5.40</version>
+            <configuration>
+              <verbose>false</verbose>
+              <images>
+                <image>
+                  <name>jbpm/${project.artifactId}:${project.version}</name>
+                  <build>
+                    <from>fabric8/java-jboss-openjdk8-jdk</from>
+                    <assembly>
+                      <targetDir>/</targetDir>
+                      <inline>
+                        <files>
+                          <file>
+                            <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
+                            <outputDirectory>deployments</outputDirectory>
+                            <destName>${project.build.finalName}.${project.packaging}</destName>
+                          </file>
+                          <file>
+                            <source>bootstrap-jbpm.xml</source>
+                            <outputDirectory>deployments</outputDirectory>
+                            <destName>bootstrap-jbpm.xml</destName>
+                          </file>
+                        </files>
+                        <fileSet>
+                          <directory>src/main/docker</directory>
+                          <outputDirectory>opt/jboss/.m2</outputDirectory>
+                          <includes>
+                            <include>settings.xml</include>
+                          </includes>
+                        </fileSet>
+                        <fileSet>
+                          <directory>../jbpm-bootstrap-kjar/target/local-repository/maven</directory>
+                          <outputDirectory>opt/jboss/.m2/repository</outputDirectory>
+                        </fileSet>
+                      </inline>
+                      <user>jboss:jboss:jboss</user>
+                    </assembly>
+                    <env>
+                      <JAVA_OPTIONS>-Dorg.kie.version=7.RELEASE -Dspring.profiles.active=openshift -Dkie.maven.settings.custom=/opt/jboss/.m2/settings.xml</JAVA_OPTIONS>
+                    </env>
+                    <ports>
+                      <port>8090</port>
+                    </ports>
+                    <runCmds>
+                      <run>chgrp -Rf root /opt/jboss &amp;&amp; chmod -Rf g+w /opt/jboss</run>
+                      <run>chgrp -Rf root /deployments &amp;&amp; chmod -Rf g+w /deployments</run>
+                    </runCmds>
+                  </build>
+                </image>
+              </images>
+            </configuration>
             <executions>
               <execution>
+                <phase>install</phase>
                 <goals>
                   <goal>resource</goal>
                   <goal>build</goal>
