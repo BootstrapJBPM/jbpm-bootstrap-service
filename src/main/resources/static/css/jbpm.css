@@ -343,3 +343,7 @@ html, body {
 
 .jbpm-card-body{
 }
+
+.hidden {
+  display: none !important;
+}

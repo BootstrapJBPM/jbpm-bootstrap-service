@@ -55,7 +55,7 @@
                     <div class="card-body jbpm-card-body">
                         <h4 class="card-title">Configure</h4>
                         <p class="card-text">Configure your application, add features and capabilities.</p>
-                        <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary">Learn how!</a>
+                        <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary" target="_blank">Learn how!</a>
                     </div>
                 </div>
                 <div class="card mb-4">
@@ -68,7 +68,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Run</h4>
                         <p class="card-text">Run your application in development and production mode.</p>
-                        <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_run_business_application" class="btn btn-primary">Learn how!</a>
+                        <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_run_your_business_application" class="btn btn-primary" target="_blank">Learn how!</a>
                     </div>
                 </div>
                 <div class="card mb-4">
@@ -81,7 +81,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Deploy</h4>
                         <p class="card-text">Deploy your application to Cloud (Docker, OpenShift, etc).</p>
-                        <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_deploy_business_application" class="btn btn-primary">Learn how!</a>
+                        <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_deploy_business_application" class="btn btn-primary" target="_blank">Learn how!</a>
                     </div>
                 </div>
             </div>
@@ -136,20 +136,20 @@
                             <input id="appName" type="text" class="form-control" th:field="*{name}">
                         </div>
                         <div class="form-group">
-                            <label class="my-1 mr-2" for="kieVersion"><strong>* KIE Version</strong></label>
+                            <label class="my-1 mr-2" for="kieVersion"><strong>* Version</strong></label>
                             <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
-                                <option value="7.12.0-SNAPSHOT">7.12.0-SNAPSHOT</option>
-                                <option value="7.11.0.Final" selected>7.11.0.Final</option>
+                                <option value="7.13.0-SNAPSHOT">7.13.0-SNAPSHOT</option>
+                                <option value="7.12.0.Final" selected>7.12.0.Final</option>
+                                <option value="7.11.0.Final">7.11.0.Final</option>
                                 <option value="7.10.0.Final">7.10.0.Final</option>
-                                <option value="7.9.0.Final">7.9.0.Final</option>
-                                <option value="7.8.0.Final">7.8.0.Final</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <div v-show="currentstep == 3">
+                <div v-show="currentstep == 3">                    
                     <div class="row d-flex justify-content-around" style="height: 300px;">
+                    	<div id="warningMsg" class="alert alert-danger" role="alert"></div>
                         <div class="options middle">
                             <br/>
                             <label>
@@ -198,7 +198,7 @@
                                 <hr style="width: 70%; color: #4682B4;"/>
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
-                                <a href="https://docs.jboss.org/jbpm/release/7.11.0.Final/jbpm-docs/html_single/index.html#_businessappoverview" target="_blank">
+                                <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_businessappoverview" target="_blank">
                                     <button type="button" class="btn btn-primary btn-lg">
                                         <i class="fa fa-info-circle"></i>&nbsp;Read more about business applications
                                     </button>
@@ -235,7 +235,7 @@
                             <button type="button" class="btn btn-primary" @click="nextStep" :hidden="thirdorendstep">
                                 Next&nbsp;<i class="fa fa-arrow-right"></i>
                             </button>
-                            <button type="submit" class="btn btn-primary" v-if="thirdstep">
+                            <button id="submitButton" type="submit" class="btn btn-primary" v-if="thirdstep">
                                 <i class="fas fa-spinner"></i>&nbsp;Generate business application
                             </button>
                         </center>
@@ -260,22 +260,30 @@
 <script>
     $(document).ready(function () {
         setFormDefaults();
-
+		$('#warningMsg').addClass('hidden');
         $('#kieVersion').editableSelect();
 
         $('form#generateForm').submit(function (e) {
+            $('#warningMsg').html('');
+            $('#warningMsg').addClass('hidden');
             e.preventDefault();
-            showPleaseWait();
+            if (!document.getElementById('optionsKjar').checked && !document.getElementById('optionsModel').checked && !document.getElementById('optionsService').checked) {
+        		$('#warningMsg').html('At least one project type must be selected');
+        		$('#warningMsg').removeClass('hidden');
+        	} else {
+        	
+            	showPleaseWait();
 
-            $('#zipName').text($('input:text#appName').val() + '.zip');
-            $('#serviceDirName').text($('input:text#appName').val() + '-service');
-            this.submit();
+            	$('#zipName').text($('input:text#appName').val() + '.zip');
+            	$('#serviceDirName').text($('input:text#appName').val() + '-service');
+            	this.submit();
 
-            setTimeout(function () {
-                hidePleaseWait();
-                goToEndStep();
-            }, 3000)
-            setFormDefaults();
+            	setTimeout(function () {
+                	hidePleaseWait();
+                	goToEndStep();
+            	}, 3000)
+            	setFormDefaults();
+            }
         });
 
     });
@@ -296,7 +304,7 @@
         $('input:radio#capabilitiesBusinessAutomation').prop('checked', 'checked');
         $('input:text#appPackage').val('com.company');
         $('input:text#appName').val('business-application');
-        $('#kieVersion').val('7.11.0.Final');
+        $('#kieVersion').val('7.12.0.Final');
     }
 
     function generateWithDefaultSettings() {
@@ -360,7 +368,6 @@
         document.getElementById('bottomcontentconfigapp').style.display = 'none';
         document.getElementById('description').style.display = 'block';
     }
-
 
 </script>
 <script>

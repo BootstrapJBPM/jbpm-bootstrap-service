@@ -49,7 +49,7 @@ public class IndexController {
     private static final String CONTAINER_ID = "jbpm-bootstrap-kjar";
     private static final String PROCESS_ID = "GenerateProject";
 
-    private static final String KIE_VERSION = System.getProperty("org.kie.version", "7.12.0-SNAPSHOT");
+    private static final String KIE_VERSION = System.getProperty("org.kie.version", "7.12.0.Final");
     private static final String MVN_SETTINGS = System.getProperty("kie.maven.settings.custom");
 
     private File parent = new File(System.getProperty("java.io.tmpdir"));

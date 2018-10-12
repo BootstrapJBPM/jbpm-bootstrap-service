@@ -1,14 +1,11 @@
 package org.jbpm.bootstrap.service.rest;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -117,17 +114,18 @@ public class ReportResource {
             
             QueryParam[] parameters = QueryParam.getBuilder()
                     .append(QueryParam.groupBy("end_date", QueryParam.DAY, 30))
-                    .append(QueryParam.count("processInstanceId"))
-                    .append(QueryParam.greaterOrEqualTo("end_date", new Date(LocalDate.now().minus(10, ChronoUnit.DAYS).toEpochDay())))
+                    .append(QueryParam.count("processInstanceId"))                    
                     .get();
             
             List<List<Object>> lastTenDays = queryService.query("jbpmBootstrapProcessInstances", 
                     RawListQueryMapper.get(), 
-                    new QueryContext(0, 10), 
+                    new QueryContext(0, 10, "end_date", false), 
                     parameters);                    
             
             List<Object> collectedApplications = new ArrayList<>();            
             List<Object> dates = new ArrayList<>();
+           
+            Collections.reverse(lastTenDays);
             
             for (List<Object> rows : lastTenDays) {
                 dates.add(rows.get(0));
