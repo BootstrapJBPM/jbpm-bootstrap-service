@@ -177,6 +177,11 @@ public class IndexController {
         }
     }
 
+    @GetMapping("/generatingmodal")
+    public String getGeneratingModal() {
+        return "fragments :: generatingmodal";
+    }
+
     protected String resolveApplicationType(Project project) {
         if (project.getCapabilities().contains("brm")) {
             return "brm";

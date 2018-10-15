@@ -1,5 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
     <link rel="icon" href="img/jbpm_icon.png">
     <title>jBPM - Build your business application</title>
@@ -21,19 +22,21 @@
         <center>
             <div class="card topbackground">
                 <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">
-                    Build your business application<br/> in just a few seconds!
+                    <span th:text="#{page.title.build}"></span>
+                    <br>
+                    <span th:text="#{page.title.inseconds}"></span>
                 </div>
                 <p>
                 <div class="topcontent row d-flex justify-content-center">
                     <button type="button" class="btn btn-primary btn-lg" style="vertical-align: middle; text-align: left; width: 400px;" onclick="generateWithDefaultSettings();">
-                        <i class="fas fa-spinner"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Generate default business application</strong>
+                        <i class="fas fa-spinner"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong th:text="#{page.generate.default}"></strong>
                     </button>
                 </div>
                 </p>
                 <p>
                 <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 5% !important">
                     <button type="button" class="btn btn-secondary btn-lg" style="vertical-align: middle;text-align: left;width: 400px;" onclick="toogleConfiguration();">
-                        <i class="fas fa-sliders-h"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Configure your business application</strong>
+                        <i class="fas fa-sliders-h"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong th:text="#{page.generate.configure}"></strong>
                     </button>
                 </div>
                 </p>
@@ -47,41 +50,41 @@
             <div class="card-deck">
                 <div class="card mb-4">
                     <div class="view overlay">
-                        <img class="card-img-top" src="img/configure.jpg" alt="Configure your application" style="height: 170px;">
+                        <img class="card-img-top" src="img/configure.jpg" th:alt="#{page.configure.alt}" style="height: 170px;">
                         <a href="#!">
                             <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
                     <div class="card-body jbpm-card-body">
-                        <h4 class="card-title">Configure</h4>
-                        <p class="card-text">Configure your application, add features and capabilities.</p>
-                        <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary" target="_blank">Learn how!</a>
+                        <h4 class="card-title" th:text="#{page.configure}"></h4>
+                        <p class="card-text" th:text="#{page.configure.desc}"></p>
+                        <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary" target="_blank" th:text="#{page.learnhow}"></a>
                     </div>
                 </div>
                 <div class="card mb-4">
                     <div class="view overlay">
-                        <img class="card-img-top" src="img/run.jpg" alt="Run your application" style="height: 170px;>
+                        <img class="card-img-top" src="img/run.jpg" th:alt="#{page.run.alt}" style="height: 170px;>
                         <a href=" #!">
                         <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Run</h4>
-                        <p class="card-text">Run your application in development and production mode.</p>
-                        <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_run_your_business_application" class="btn btn-primary" target="_blank">Learn how!</a>
+                        <h4 class="card-title" th:text="#{page.run}"></h4>
+                        <p class="card-text" th:text="#{page.run.desc}"></p>
+                        <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_run_your_business_application" class="btn btn-primary" target="_blank" th:text="#{page.learnhow}"></a>
                     </div>
                 </div>
                 <div class="card mb-4">
                     <div class="view overlay">
-                        <img class="card-img-top" src="img/cloud.png" alt="Deploy your application" style="height: 170px;>
+                        <img class="card-img-top" src="img/cloud.png" th:alt="#{page.deploy.alt}" style="height: 170px;">
                         <a href=" #!">
                         <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Deploy</h4>
-                        <p class="card-text">Deploy your application to Cloud (Docker, OpenShift, etc).</p>
-                        <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_deploy_business_application" class="btn btn-primary" target="_blank">Learn how!</a>
+                        <h4 class="card-title" th:text="#{page.deploy}"></h4>
+                        <p class="card-text" th:text="#{page.deploy.desc}"></p>
+                        <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_deploy_business_application" class="btn btn-primary" target="_blank" th:text="#{page.learnhow}"></a>
                     </div>
                 </div>
             </div>
@@ -104,21 +107,21 @@
                                 <input type="radio" value="bpm" th:field="*{capabilities}" name="capabilitiesBusinessAutomation" id="capabilitiesBusinessAutomation" onclick="toggle('input:radio#capabilitiesBusinessAutomation', 'bpm');">
                                 <div class="box">
                                     <i class="fas fa-cogs fa-4x"></i>
-                                    <span>Business Automation</span>
+                                    <span th:text="#{page.configure.type.businessautomation}"></span>
                                 </div>
                             </label>
                             <label>
                                 <input type="radio" value="brm" th:field="*{capabilities}" name="capabilitiesDecisionManagement" id="capabilitiesDecisionManagement" onclick="toggle('input:radio#capabilitiesDecisionManagement', 'brm');">
                                 <div class="box">
                                     <i class="far fa-lightbulb fa-4x"></i>
-                                    <span>Decision Management</span>
+                                    <span th:text="#{page.configure.type.decisionmanagement}"></span>
                                 </div>
                             </label>
                             <label>
                                 <input type="radio" value="planner" th:field="*{capabilities}" name="capabilitiesBusinessOptimizer" id="capabilitiesBusinessOptimizer" onclick="toggle('input:radio#capabilitiesBusinessOptimizer', 'planner');">
                                 <div class="box">
                                     <i class="fas fa-sliders-h fa-4x"></i>
-                                    <span>Business Optimization</span>
+                                    <span th:text="#{page.configure.type.businessoptimization}"></span>
                                 </div>
                             </label>
                         </div>
@@ -128,15 +131,15 @@
                 <div v-show="currentstep == 2">
                     <div class="w-50 p-3" style="height: 300px;margin-left:auto; margin-right:auto; display:block;">
                         <div class="form-group">
-                            <label for="appPackage"><strong>* Package Name</strong></label>
+                            <label for="appPackage"><strong th:text="#{page.configure.appinfo.packagename}"></strong></label>
                             <input id="appPackage" type="text" class="form-control" th:field="*{packageName}">
                         </div>
                         <div class="form-group">
-                            <label for="appName"><strong>* Application Name</strong></label>
+                            <label for="appName"><strong th:text="#{page.configure.appinfo.appname}"></strong></label>
                             <input id="appName" type="text" class="form-control" th:field="*{name}">
                         </div>
                         <div class="form-group">
-                            <label class="my-1 mr-2" for="kieVersion"><strong>* Version</strong></label>
+                            <label class="my-1 mr-2" for="kieVersion"><strong th:text="#{page.configure.appinfo.version}"></strong></label>
                             <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
                                 <option value="7.13.0-SNAPSHOT">7.13.0-SNAPSHOT</option>
                                 <option value="7.12.0.Final" selected>7.12.0.Final</option>
@@ -156,21 +159,21 @@
                                 <input type="checkbox" th:value="kjar" th:field="*{options}" name="optionsKjar" id="optionsKjar" onclick="toggle('input:checkbox#optionsKjar', 'kjar');">
                                 <div class="box">
                                     <i class="fas fa-lightbulb fa-4x"></i>
-                                    <span>Business Assets</span>
+                                    <span th:text="#{page.configure.components.businessassets}"></span>
                                 </div>
                             </label>
                             <label>
                                 <input type="checkbox" th:value="model" th:field="*{options}" name="optionsModel" id="optionsModel" onclick="toggle('input:checkbox#optionsModel', 'model');">
                                 <div class="box">
                                     <i class="fa fa-sliders-h fa-4x"></i>
-                                    <span>Data model</span>
+                                    <span th:text="#{page.configure.components.datamodel}"></span>
                                 </div>
                             </label>
                             <label>
                                 <input type="checkbox" th:value="service" th:field="*{options}" name="optionsService" id="optionsService" onclick="toggle('input:checkbox#optionsService', 'service');">
                                 <div class="box">
                                     <i class="fas fa-cogs fa-4x"></i>
-                                    <span>Service</span>
+                                    <span th:text="#{page.configure.components.service}"></span>
                                 </div>
                             </label>
                         </div>
@@ -186,13 +189,13 @@
                                 <i class="far fa-check-circle fa-3x img-valign" style="color: green; margin-top: 5px;"></i>&nbsp;&nbsp;
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
-                                <span class="successtext" style="color: green;">Business Application successfully generated!</span>
+                                <span class="successtext" style="color: green;" th:text="#{page.configure.success.title}"></span>
                             </div>
                             <div style="text-align: left; margin-left: 35%;">
-                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Unzip generated <strong id="zipName"></strong> file</strong></span><br/>
-                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Go to <strong id="serviceDirName"></strong>  directory</span><br/>
-                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Execute <strong>launch.sh/bat clean install</strong></span><br/>
-                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps">Open browser at <a href="http://localhost:8090">http://localhost:8090</a></span><br/>
+                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps" th:text="#{page.configure.success.step1}"></span><br/>
+                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps" th:text="#{page.configure.success.step2}"></span><br/>
+                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps" th:text="#{page.configure.success.step3}"></span><br/>
+                                <i class="fas fa-check"></i>&nbsp;<span class="nextsteps" th:text="#{page.configure.success.step4}"></span><br/>
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
                                 <hr style="width: 70%; color: #4682B4;"/>
@@ -200,7 +203,8 @@
                             <div class="text-center" style="margin-top: 5px;">
                                 <a href="https://docs.jboss.org/jbpm/release/7.12.0.Final/jbpm-docs/html_single/index.html#_businessappoverview" target="_blank">
                                     <button type="button" class="btn btn-primary btn-lg">
-                                        <i class="fa fa-info-circle"></i>&nbsp;Read more about business applications
+                                        <i class="fa fa-info-circle"></i>&nbsp;
+                                        <span th:text="#{page.configure.success.readmore}"></span>
                                     </button>
                                 </a>
                             </div>
@@ -218,25 +222,27 @@
                     </ol>
                 </script>
 
-                <script type="x-template" id="step-navigation-step-template">
+                <script type="x-template" id="step-navigation-step-template" th:inline="text">
                     <li :class="indicatorclass">
                         <div class="step"><i :class="step.icon_class"></i></div>
-                        <div class="caption hidden-xs hidden-sm">Step <span v-text="step.id"></span>:
-                            <span v-text="step.title"></span></div>
+                        <div class="caption hidden-xs hidden-sm">
+                            <span>[[#{page.configure.step}]]</span>
+                            <span v-text="step.id"></span>:
+                            <span v-text="step.title"></span>
+                        </div>
                     </li>
                 </script>
 
-                <script type="x-template" id="step-template">
+                <script type="x-template" id="step-template" th:inline="text">
                     <div class="step-wrapper" :class="stepWrapperClass">
                         <center>
-                            <!--<button id="cancelButton" type="button" class="btn btn-primary" @click="firstStep" :hidden="firstorendstep">-->
-                            <!--<i class="fas fa-times"></i>&nbsp;Cancel-->
-                            <!--</button>     -->
                             <button type="button" class="btn btn-primary" @click="nextStep" :hidden="thirdorendstep">
-                                Next&nbsp;<i class="fa fa-arrow-right"></i>
+                                <i class="fa fa-arrow-right"></i>&nbsp;
+                                <span>[[#{page.configure.next}]]</span>
                             </button>
                             <button id="submitButton" type="submit" class="btn btn-primary" v-if="thirdstep">
-                                <i class="fas fa-spinner"></i>&nbsp;Generate business application
+                                <i class="fas fa-spinner"></i>&nbsp;
+                                <span>[[#{page.configure.generate}]]</span>
                             </button>
                         </center>
                     </div>
@@ -250,9 +256,9 @@
     </div>
     <p/><p/><p/><p>
     <footer class="page-footer font-small jbpmfooter text-center">
-        <a href="http://jbpm.org/" target="_blank"><img src="img/provided_by_jbpm.png" alt="Provided by jBPM" width="180px" height="68px"></a>
+        <a href="http://jbpm.org/" target="_blank"><img src="img/provided_by_jbpm.png" th:alt="#{page.footer.provided}" width="180px" height="68px"></a>
         &nbsp;&nbsp;&nbsp;
-        <a href="https://www.openshift.com/" target="_blank"><img src="img/powered_by_openshift.png" alt="Powered by OpenShift Online" width="180px" height="48px"></a>
+        <a href="https://www.openshift.com/" target="_blank"><img src="img/powered_by_openshift.png" th:alt="#{page.footer.powered}" width="180px" height="48px"></a>
     </footer>
     </p>
 </div>
@@ -330,24 +336,13 @@
     }
 
     function showPleaseWait() {
-        var modalLoading = '<div class="modal" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false" role="dialog">\
-        <div class="modal-dialog">\
-            <div class="modal-content">\
-                <div class="modal-header">\
-                    <h4 class="modal-title">Generating your business app...</h4>\
-                </div>\
-                <div class="modal-body">\
-                    <div class="progress">\
-                      <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"\
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; height: 40px">\
-                      </div>\
-                    </div>\
-                </div>\
-            </div>\
-        </div>\
-    </div>';
-        $(document.body).append(modalLoading);
-        $("#pleaseWaitDialog").modal("show");
+        $.ajax({
+            url: "/generatingmodal/",
+            success: function (data) {
+                $(document.body).append(data);
+                $("#pleaseWaitDialog").modal("show");
+            }
+        });
     }
 
     function hidePleaseWait() {
@@ -370,7 +365,7 @@
     }
 
 </script>
-<script>
+<script th:inline="javascript">
     Vue.component("step-navigation-step", {
         template: "#step-navigation-step-template",
 
@@ -462,22 +457,22 @@
             steps: [
                 {
                     id: 1,
-                    title: "Application Type",
+                    title: /*[[#{page.configure.step1}]]*/ "Application Type",
                     icon_class: "fas fa-share-alt"
                 },
                 {
                     id: 2,
-                    title: "Application Info",
+                    title:  /*[[#{page.configure.step2}]]*/ "Application Info",
                     icon_class: "fa fa fa-cog"
                 },
                 {
                     id: 3,
-                    title: "Application Components",
+                    title: /*[[#{page.configure.step3}]]*/ "Application Components",
                     icon_class: "fa fa-sliders-h"
                 },
                 {
                     id: 4,
-                    title: "Launch your Application",
+                    title: /*[[#{page.configure.step4}]]*/ "Launch your Application",
                     icon_class: "fas fa-play-circle"
                 }
             ]
