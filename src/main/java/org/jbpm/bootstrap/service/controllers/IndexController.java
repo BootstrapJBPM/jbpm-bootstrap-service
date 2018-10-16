@@ -17,16 +17,23 @@ package org.jbpm.bootstrap.service.controllers;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.mail.internet.MimeUtility;
 
 import org.apache.commons.io.IOUtils;
 import org.jbpm.bootstrap.model.Project;
 import org.jbpm.services.api.ProcessService;
+import org.jbpm.services.api.admin.ProcessInstanceAdminService;
+import org.kie.api.runtime.query.QueryContext;
+import org.kie.internal.runtime.error.ExecutionError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +43,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileSystemUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +65,9 @@ public class IndexController {
     @Autowired
     private ProcessService processService;
 
+    @Autowired
+    ProcessInstanceAdminService processInstanceAdminService;
+
     @GetMapping("/")
     public String showIndex(Model model) {
         return "index";
@@ -74,7 +85,7 @@ public class IndexController {
 
     @PostMapping(value = "/", produces = {"application/octet-stream"})
     public @ResponseBody
-    ResponseEntity<?> buildApp(@ModelAttribute Project project) {
+    ResponseEntity<?> buildApp(@ModelAttribute Project project) throws Exception {
         if (project == null) {
             logger.error("Project is missing");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -145,7 +156,7 @@ public class IndexController {
 
             generatedProject = new File(tempFolder,
                                         fileName);
-            waitForGeneratedProject(new File(tempFolder, project.getName() + ".marker"));
+            waitForGeneratedProject(new File(tempFolder, project.getName() + ".marker"), processInstanceId);
 
             logger.info("Project generation via process with instance id {} done in {} ms",
                         processInstanceId,
@@ -165,7 +176,7 @@ public class IndexController {
         } catch (Exception e) {
             logger.error("Error when generating project",
                          e);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new Exception(e.getMessage());
         } finally {
 
             if (generatedProject != null) {
@@ -192,24 +203,54 @@ public class IndexController {
         }
     }
 
-    protected void waitForGeneratedProject(File generatedProject) {
-        try {
-            long totalWaitTime = 0;
-            while (true) {
+    protected void waitForGeneratedProject(File generatedProject, long processInstanceId) throws Exception {
+        // check errors before we begin
+        checkProcessInstanceErrors(processInstanceId);
 
-                if (!generatedProject.exists()) {
-                    Thread.sleep(200);
-                    totalWaitTime += 200;
+        long totalWaitTime = 0;
+        int i = 0;
+        while (true) {
 
-                    if (totalWaitTime > 60000) {
-                        throw new RuntimeException("Timeout while waiting for generated project");
-                    }
-                    continue;
+            if (!generatedProject.exists()) {
+                Thread.sleep(200);
+                totalWaitTime += 200;
+
+                i++;
+                // every 4 seconds check errors again
+                if (i > 0 && (i % 20 == 0)) {
+                    checkProcessInstanceErrors(processInstanceId);
                 }
 
-                return;
+                if (totalWaitTime > 60000) {
+                    throw new RuntimeException("Timeout while waiting for generated project");
+                }
+
+                continue;
             }
-        } catch (InterruptedException e) {
+
+            return;
         }
+
+    }
+
+    protected void checkProcessInstanceErrors(long processInstanceId) throws Exception {
+        List<ExecutionError> executionErrors =  processInstanceAdminService.getErrorsByProcessInstanceId(processInstanceId, true, new QueryContext());
+        if(executionErrors !=null && executionErrors.size() > 0) {
+            String errorString = executionErrors.stream()
+                    .map(i -> i.toString())
+                    .collect(Collectors.joining("\n "));
+
+            throw new Exception(errorString);
+        }
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String exception(final Exception e, final Model model) {
+        StringWriter errors = new StringWriter();
+        e.printStackTrace(new PrintWriter(errors));
+        model.addAttribute("stacktrace", errors.toString());
+        String errorMessage = (e != null ? e.getMessage() : "Unknown error");
+        model.addAttribute("errorMessage", errorMessage);
+        return "error";
     }
 }

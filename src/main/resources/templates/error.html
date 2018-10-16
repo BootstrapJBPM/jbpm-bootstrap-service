@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="lang=${#locale.language}" th:lang="${lang}">
+
+<head>
+    <link rel="icon" href="img/jbpm_icon.png">
+    <title th:text="#{page.error.title}"></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="css/jquery-editable-select.min.css">
+    <link rel="stylesheet" href="css/jbpm.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <style>
+        .error-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+
+        .error-actions {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .error-actions .btn {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1 th:text="#{page.error.oops}"></h1>
+                <div class="error-details">
+                    <h2 th:text="#{page.error.msg}"></h2>
+                </div>
+                <br/><br/>
+                <div class="form-group">
+                    <label for="errordetails"><h2 th:text="#{page.error.details}"></h2></label>
+                    <textarea class="form-control" rows="7" id="errordetails" th:text="${stacktrace}"></textarea>
+                </div>
+                <div class="error-actions">
+                    <h4 th:text="#{page.error.helpus}"></h4><br/>
+                    <div class="text-center">
+                        <h4 th:text="#{page.error.copyandpost}"></h4><br/>
+                        <a class="btn btn-primary" href="https://groups.google.com/forum/#!forum/jbpm-setup">
+                            <span th:text="#{page.error.forum}"></span>
+                        </a>
+                        <br/><br/>
+                        <h4 th:text="#{page.error.generateagainmsg}"></h4><br/>
+                        <div class="text-center">
+                            <a class="btn btn-primary" href="/">
+                                <span th:text="#{page.error.generateagain}"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
