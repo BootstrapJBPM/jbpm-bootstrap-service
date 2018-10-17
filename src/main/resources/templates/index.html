@@ -3,7 +3,7 @@
       th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
     <link rel="icon" href="img/jbpm_icon.png">
-    <title>jBPM - Build your business application</title>
+    <title th:text="#{page.index.title}"></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -287,7 +287,7 @@
             	setTimeout(function () {
                 	hidePleaseWait();
                 	goToEndStep();
-            	}, 3000)
+            	}, 5000)
             	setFormDefaults();
             }
         });
