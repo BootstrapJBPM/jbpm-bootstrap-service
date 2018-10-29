@@ -109,21 +109,21 @@
                             <br/>
                             <label>
                                 <input type="radio" value="bpm" th:field="*{capabilities}" name="capabilitiesBusinessAutomation" id="capabilitiesBusinessAutomation" onclick="toggle('input:radio#capabilitiesBusinessAutomation', 'bpm');">
-                                <div class="box">
+                                <div class="box" data-toggle="tooltip" data-placement="bottom" th:title="#{page.configure.type.businessautomation.tooltip}">
                                     <i class="fas fa-cogs fa-4x"></i>
                                     <span th:text="#{page.configure.type.businessautomation}"></span>
                                 </div>
                             </label>
                             <label>
                                 <input type="radio" value="brm" th:field="*{capabilities}" name="capabilitiesDecisionManagement" id="capabilitiesDecisionManagement" onclick="toggle('input:radio#capabilitiesDecisionManagement', 'brm');">
-                                <div class="box">
+                                <div class="box" data-toggle="tooltip" data-placement="bottom" th:title="#{page.configure.type.decisionmanagement.tooltip}">
                                     <i class="far fa-lightbulb fa-4x"></i>
                                     <span th:text="#{page.configure.type.decisionmanagement}"></span>
                                 </div>
                             </label>
                             <label>
                                 <input type="radio" value="planner" th:field="*{capabilities}" name="capabilitiesBusinessOptimizer" id="capabilitiesBusinessOptimizer" onclick="toggle('input:radio#capabilitiesBusinessOptimizer', 'planner');">
-                                <div class="box">
+                                <div class="box" data-toggle="tooltip" data-placement="bottom" th:title="#{page.configure.type.businessoptimization.tooltip}">
                                     <i class="fas fa-sliders-h fa-4x"></i>
                                     <span th:text="#{page.configure.type.businessoptimization}"></span>
                                 </div>
@@ -161,22 +161,29 @@
                         <div class="options middle">
                             <br/>
                             <label>
-                                <input type="checkbox" th:value="kjar" th:field="*{options}" name="optionsKjar" id="optionsKjar" onclick="toggle('input:checkbox#optionsKjar', 'kjar');">
-                                <div class="box">
+                                <input type="checkbox" th:value="kjar" th:field="*{options}" name="optionsKjar" id="optionsKjar" onclick="unchecktoggle('input:checkbox#optionsKjar', 'kjar', 'input:checkbox#optionsDKjar');">
+                                <div class="box" data-toggle="tooltip" data-placement="bottom" th:title="#{page.configure.components.businessassets.tooltip}">
                                     <i class="fas fa-lightbulb fa-4x"></i>
                                     <span th:text="#{page.configure.components.businessassets}"></span>
                                 </div>
                             </label>
                             <label>
+                                <input type="checkbox" th:value="dkjar" th:field="*{options}" name="optionsDKjar" id="optionsDKjar" onclick="unchecktoggle('input:checkbox#optionsDKjar', 'dkjar', 'input:checkbox#optionsKjar');">
+                                <div class="box" data-toggle="tooltip" data-placement="bottom" th:title="#{page.configure.components.dynamicassets.tooltip}">
+                                    <i class="fas fa-wrench  fa-4x"></i>
+                                    <span th:text="#{page.configure.components.dynamicassets}"></span>
+                                </div>
+                            </label>
+                            <label>
                                 <input type="checkbox" th:value="model" th:field="*{options}" name="optionsModel" id="optionsModel" onclick="toggle('input:checkbox#optionsModel', 'model');">
-                                <div class="box">
+                                <div class="box" data-toggle="tooltip" data-placement="bottom" th:title="#{page.configure.components.datamodel.tooltip}">
                                     <i class="fa fa-sliders-h fa-4x"></i>
                                     <span th:text="#{page.configure.components.datamodel}"></span>
                                 </div>
                             </label>
                             <label>
                                 <input type="checkbox" th:value="service" th:field="*{options}" name="optionsService" id="optionsService" onclick="toggle('input:checkbox#optionsService', 'service');">
-                                <div class="box">
+                                <div class="box" data-toggle="tooltip" data-placement="bottom" th:title="#{page.configure.components.service.tooltip}">
                                     <i class="fas fa-cogs fa-4x"></i>
                                     <span th:text="#{page.configure.components.service}"></span>
                                 </div>
@@ -273,12 +280,13 @@
         setFormDefaults();
 		$('#warningMsg').addClass('hidden');
         $('#kieVersion').editableSelect();
+        setDefaultVersion();
 
         $('form#generateForm').submit(function (e) {
             $('#warningMsg').html('');
             $('#warningMsg').addClass('hidden');
             e.preventDefault();
-            if (!document.getElementById('optionsKjar').checked && !document.getElementById('optionsModel').checked && !document.getElementById('optionsService').checked) {
+            if (!document.getElementById('optionsKjar').checked && !document.getElementById('optionsDKjar').checked && !document.getElementById('optionsModel').checked && !document.getElementById('optionsService').checked) {
         		$('#warningMsg').html('At least one project type must be selected');
         		$('#warningMsg').removeClass('hidden');
         	} else {
@@ -297,6 +305,9 @@
             }
         });
 
+        // init all tooltips
+        $('[data-toggle="tooltip"]').tooltip()
+
     });
 
     function goToEndStep() {
@@ -307,14 +318,20 @@
 
     function setFormDefaults() {
         $('input:checkbox#optionsKjar').prop("checked", true);
+        $('input:checkbox#optionsDKjar').prop("checked", false);
         $('input:checkbox#optionsModel').prop("checked", true);
         $('input:checkbox#optionsService').prop("checked", true);
         $('input:checkbox#optionsKjar').val("kjar");
+        $('input:checkbox#optionsDKjar').val("");
         $('input:checkbox#optionsModel').val("model");
         $('input:checkbox#optionsService').val("service");
         $('input:radio#capabilitiesBusinessAutomation').prop('checked', 'checked');
         $('input:text#appPackage').val('com.company');
         $('input:text#appName').val('business-application');
+        setDefaultVersion();
+    }
+
+    function setDefaultVersion() {
         $('#kieVersion').val('7.13.0.Final');
     }
 
@@ -360,6 +377,12 @@
         } else {
             $(item).val('');
         }
+    }
+
+    function unchecktoggle(item1, val1, item2) {
+        toggle(item1, val1);
+        $(item2).prop("checked", false);
+        toggle(item2, '');
     }
 
     function resetAndGoToFirstStep() {
