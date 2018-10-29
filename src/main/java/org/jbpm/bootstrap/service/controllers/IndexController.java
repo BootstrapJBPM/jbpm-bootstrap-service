@@ -134,6 +134,11 @@ public class IndexController {
             if (project.getOptions().contains("kjar")) {
                 kjarSettings = "-DkjarGroupId=" + project.getPackageName() + " -DkjarArtifactId=" + project.getName() + "-kjar -DkjarVersion=1.0-SNAPSHOT";
             }
+
+            if (project.getOptions().contains("dkjar")) {
+                kjarSettings = "-DkjarGroupId=" + project.getPackageName() + " -DkjarArtifactId=" + project.getName() + "-kjar -DcaseProject=true -DruntimeStrategy=PER_CASE -DkjarVersion=1.0-SNAPSHOT";
+            }
+
             String mavenSettings = "";
             if (MVN_SETTINGS != null) {
                 mavenSettings = "-s " + MVN_SETTINGS;
