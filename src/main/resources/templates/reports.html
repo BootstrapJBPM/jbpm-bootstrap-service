@@ -19,134 +19,198 @@
     <script src="js/c3.min.js"></script>
 </head>
 <body>
-<div id="container">
-    <nav class="navbar navbar-light bg-light">
-        <div class="col-sm-12 text-center jbpm-card-body">
-            <h2><strong>Reports</strong> for generated applications via <strong>start.jbpm.org</strong></h2>
-        </div>
-    </nav>
-    <br/>
+	<div id="container" style="display: block !important;">
+		<nav class="navbar navbar-light bg-light">
+			<div class="col-sm-12 text-center jbpm-card-body">
+				<h2>
+					<strong>Reports</strong> for generated applications via <strong>start.jbpm.org</strong>
+				</h2>
+			</div>
+		</nav>
+		<br />
 
-    <div class="row" style="width: 70%; margin-left: 15%">
-        <div class="col-sm-4">
-            <div class="card text-center" style="width: 25rem;">
-                <div class="card-header">Total generated applications</div>
-                <div class="card-body">
-                    <p class="card-text text-center">
-                        <b><span id="totalApps"></span></b>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card text-center" style="width: 25rem;">
-                <div class="card-header">Generated applications today</div>
-                <div class="card-body">
-                    <p class="card-text text-center">
-                        <b><span id="todayApps"></span></b>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card text-center" style="width: 25rem;">
-                <div class="card-header">Generation errors</div>
-                <div class="card-body">
-                    <p class="card-text text-center">
-                        <b><span id="totalErrors"></span></b>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br/>
+		<div class="row" style="width: 70%; margin-left: 15%">
+			<div class="col-sm-4">
+				<div class="card text-center" style="width: 25rem;">
+					<div class="card-header">Total generated applications</div>
+					<div class="card-body">
+						<p class="card-text text-center">
+							<b><span id="totalApps"></span></b>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card text-center" style="width: 25rem;">
+					<div class="card-header">Generated applications today</div>
+					<div class="card-body">
+						<p class="card-text text-center">
+							<b><span id="todayApps"></span></b>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card text-center" style="width: 25rem;">
+					<div class="card-header">Generation errors</div>
+					<div class="card-body">
+						<p class="card-text text-center">
+							<b><span id="totalErrors"></span></b>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
 
 
-        <nav class="navbar navbar-light bg-light">
-            <div class="col-sm-12 text-center jbpm-card-body">
-                </i><h2><strong>Charts</strong> for generated business applications</h2>
-            </div>
-        </nav>
-    <br/>
-    <br/>
-    <div class="row" style="width: 70%; margin-left: 15%">
+		<nav class="navbar navbar-light bg-light">
+			<div class="col-sm-12 text-center jbpm-card-body">
+				<h2>
+					<strong>Charts</strong> for generated business applications
+				</h2>
+			</div>
+		</nav>
+		<br /> <br />
+		<div class="row" style="width: 70%; margin-left: 15%">
 
-        <div class="col-sm-6">
-            <div id="chart-recent-per-day"></div>
-        </div>
+			<div class="col-sm-6">
+				<div id="chart-recent-per-day"></div>
+			</div>
 
-        <div class="col-sm-6">
-            <div id="chart-per-type"></div>
-        </div>
+			<div class="col-sm-6">
+				<div id="chart-per-type"></div>
+			</div>
 
-    </div>
-    <br/><br/>
-    <footer class="page-footer font-small jbpmfooter text-center">
-        <a href="http://jbpm.org/" target="_blank"><img src="img/provided_by_jbpm.png" alt="Provided by jBPM" width="180px" height="68px"></a>
-        &nbsp;&nbsp;&nbsp;
-        <a href="https://www.openshift.com/" target="_blank"><img src="img/powered_by_openshift.png" alt="Powered by OpenShift Online" width="180px" height="48px"></a>
-    </footer>
-</div>
+		</div>
+		<br /> <br />
+		<div class="row" style="width: 70%; margin-left: 15%">
 
-<script>
+			<div class="col-sm-6">
+				<div id="chart-per-version"></div>
+			</div>
 
-    function loadBarChart(apps, dates) {
-        var bchart = c3.generate({
-            bindto: '#chart-recent-per-day',
-            data: {
-                columns: [apps],
-                type: 'bar'
-            },
-            axis: {
-                x: {
-                    type: 'category',
-                    categories: dates
-                }
-            }
-        });
-    }
+			<div class="col-sm-6">
+				<div id="chart-per-options"></div>
+			</div>
 
-    function loadPieChart(ba, dm, bo) {
-        var pchart = c3.generate({
-            bindto: '#chart-per-type',
-            data: {
-                // iris data from R
-                columns: [['Business Automation', ba],
-                    ['Decision Management', dm],
-                    ['Business Optimisation', bo]],
-                type: 'pie'
-            }
-        });
-    }
+		</div>
+		<br />
+		<br />
+		<footer class="page-footer font-small jbpmfooter text-center">
+			<a href="http://jbpm.org/" target="_blank"><img
+				src="img/provided_by_jbpm.png" alt="Provided by jBPM" width="180px"
+				height="68px"></a> &nbsp;&nbsp;&nbsp; <a
+				href="https://www.openshift.com/" target="_blank"><img
+				src="img/powered_by_openshift.png" alt="Powered by OpenShift Online"
+				width="180px" height="48px"></a>
+		</footer>
+	</div>
 
-    $(document).ready(function () {
-        $.get(window.location.protocol + "//" + window.location.host + "/rest/reports/stats", function (data, status) {
+	<script>
+		function loadBarChart(apps, dates) {
+			var bchart = c3.generate({
+				bindto : '#chart-recent-per-day',
+				data : {
+					columns : [ apps ],
+					type : 'bar'
+				},
+				axis : {
+					x : {
+						type : 'category',
+						categories : dates
+					}
+				}
+			});
+		}
 
-            $('#totalApps').text(data[0]);
-            $('#todayApps').text(data[1]);
-            $('#totalErrors').text(data[2]);
+		function loadPieChart(ba, dm, bo) {
+			var pchart = c3.generate({
+				bindto : '#chart-per-type',
+				data : {
+					columns : [ [ 'Business Automation', ba ],
+							[ 'Decision Management', dm ],
+							[ 'Business Optimisation', bo ] ],
+					type : 'pie'
+				}
+			});
+		}
+		
+		function loadPieVersionsChart(byVersion) {
+			var pchart = c3.generate({
+				bindto : '#chart-per-version',
+				data : {
+					columns : byVersion,
+					type : 'pie'
+				}
+			});
+		}
+		
+		function loadPieOptionsChart(byOptions) {
+			var pchart = c3.generate({
+				bindto : '#chart-per-options',
+				data : {
+					columns : byOptions,
+					type : 'pie'
+				}
+			});
+		}
 
-        });
+		$(document)
+				.ready(
+						function() {
+							$.get(window.location.protocol + "//"
+									+ window.location.host
+									+ "/rest/reports/stats", function(data,
+									status) {
 
-        $.get(window.location.protocol + "//" + window.location.host + "/rest/reports/types", function (data, status) {
+								$('#totalApps').text(data[0]);
+								$('#todayApps').text(data[1]);
+								$('#totalErrors').text(data[2]);
 
-            loadPieChart(data['bpm'], data['brm'], data['planner']);
+							});
 
-        });
+							$.get(window.location.protocol + "//"
+									+ window.location.host
+									+ "/rest/reports/types", function(data,
+									status) {
 
-        $.get(window.location.protocol + "//" + window.location.host + "/rest/reports/apps", function (data, status) {
+								loadPieChart(data['bpm'], data['brm'],
+										data['planner']);
 
-            var apps = data['apps'];
-            apps.unshift('Number of generated applications');
+							});
 
-            var dates = data['dates'];
+							$.get(window.location.protocol + "//" + window.location.host + "/rest/reports/apps", function(data, status) {
 
-            loadBarChart(apps, dates);
+								var apps = data['apps'];
+								apps.unshift('Number of generated applications');
 
-        });
+								var dates = data['dates'];
 
-    });
-</script>
+								loadBarChart(apps, dates);
+
+							});
+							
+							$.get(window.location.protocol + "//"
+									+ window.location.host
+									+ "/rest/reports/versions", function(data,
+									status) {
+
+								loadPieVersionsChart(data);
+
+							});
+							
+							$.get(window.location.protocol + "//"
+									+ window.location.host
+									+ "/rest/reports/options", function(data,
+									status) {
+
+								loadPieOptionsChart(data);
+
+							});
+
+						});
+	</script>
 
 
 </body>

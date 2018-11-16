@@ -113,7 +113,7 @@ public class ReportResource {
         try {
             
             QueryParam[] parameters = QueryParam.getBuilder()
-                    .append(QueryParam.groupBy("end_date", QueryParam.DAY, 30))
+                    .append(QueryParam.groupBy("end_date", QueryParam.DAY, 365))
                     .append(QueryParam.count("processInstanceId"))                    
                     .get();
             
@@ -142,6 +142,60 @@ public class ReportResource {
                 .build();
         } catch (Exception e) {
             logger.error("Unexepcted error while collecting report by date", e);
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+    
+    @GET
+    @Path("versions")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response collectByVersion() {
+        try {
+            
+            QueryParam[] parameters = QueryParam.getBuilder()
+                    .append(QueryParam.groupBy("value"))
+                    .append(QueryParam.count("processInstanceId"))
+                    .append(QueryParam.equalsTo("variableId", "projectVersion"))
+                    .get();
+            
+            List<List<Object>> byVersion = queryService.query("jbpmBootstrapProcessInstancesByVar", 
+                    RawListQueryMapper.get(), 
+                    new QueryContext(), 
+                    parameters); 
+            
+            return Response.ok()
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .entity(mapper.writeValueAsString(byVersion))
+                .build();
+        } catch (Exception e) {
+            logger.error("Unexepcted error while collecting report by version", e);
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+    
+    @GET
+    @Path("options")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response collectByOption() {
+        try {
+            
+            QueryParam[] parameters = QueryParam.getBuilder()
+                    .append(QueryParam.groupBy("value"))
+                    .append(QueryParam.count("processInstanceId"))
+                    .append(QueryParam.equalsTo("variableId", "projectOptions"))
+                    .get();
+            
+            List<List<Object>> byOptions = queryService.query("jbpmBootstrapProcessInstancesByVar", 
+                    RawListQueryMapper.get(), 
+                    new QueryContext(), 
+                    parameters);            
+            
+            return Response.ok()
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .entity(mapper.writeValueAsString(byOptions))
+                .build();
+        } catch (Exception e) {
+            logger.error("Unexepcted error while collecting report by version", e);
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

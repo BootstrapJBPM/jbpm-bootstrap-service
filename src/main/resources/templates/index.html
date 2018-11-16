@@ -62,7 +62,7 @@
                     <div class="card-body jbpm-card-body">
                         <h4 class="card-title" th:text="#{page.configure}"></h4>
                         <p class="card-text" th:text="#{page.configure.desc}"></p>
-                        <a href="https://docs.jboss.org/jbpm/release/7.13.0.Final/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary" target="_blank" th:text="#{page.learnhow}"></a>
+                        <a href="https://docs.jboss.org/jbpm/release/latest/jbpm-docs/html_single/index.html#_configure_business_application" class="btn btn-primary" target="_blank" th:text="#{page.learnhow}"></a>
                     </div>
                 </div>
                 <div class="card mb-4">
@@ -75,7 +75,7 @@
                     <div class="card-body">
                         <h4 class="card-title" th:text="#{page.run}"></h4>
                         <p class="card-text" th:text="#{page.run.desc}"></p>
-                        <a href="https://docs.jboss.org/jbpm/release/7.13.0.Final/jbpm-docs/html_single/index.html#_run_your_business_application" class="btn btn-primary" target="_blank" th:text="#{page.learnhow}"></a>
+                        <a href="https://docs.jboss.org/jbpm/release/latest/jbpm-docs/html_single/index.html#_run_your_business_application" class="btn btn-primary" target="_blank" th:text="#{page.learnhow}"></a>
                     </div>
                 </div>
                 <div class="card mb-4">
@@ -88,7 +88,7 @@
                     <div class="card-body">
                         <h4 class="card-title" th:text="#{page.deploy}"></h4>
                         <p class="card-text" th:text="#{page.deploy.desc}"></p>
-                        <a href="https://docs.jboss.org/jbpm/release/7.13.0.Final/jbpm-docs/html_single/index.html#_deploy_business_application" class="btn btn-primary" target="_blank" th:text="#{page.learnhow}"></a>
+                        <a href="https://docs.jboss.org/jbpm/release/latest/jbpm-docs/html_single/index.html#_deploy_business_application" class="btn btn-primary" target="_blank" th:text="#{page.learnhow}"></a>
                     </div>
                 </div>
             </div>
@@ -145,11 +145,15 @@
                         <div class="form-group">
                             <label class="my-1 mr-2" for="kieVersion"><strong th:text="#{page.configure.appinfo.version}"></strong></label>
                             <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
-                                <option value="7.14.0-SNAPSHOT">7.14.0-SNAPSHOT</option>
-                                <option value="7.13.0.Final" selected>7.13.0.Final</option>
+                                <option value="" disabled>Enterprise</option>
+                                <option value="7.11.0.Final-redhat-00003">Enterprise 7.1</option>
+                                <option value="" disabled>Community</option>
+                                <option value="7.15.0-SNAPSHOT">7.15.0-SNAPSHOT</option>
+                                <option value="7.14.0.Final" selected>7.14.0.Final</option>
+                                <option value="7.13.0.Final">7.13.0.Final</option>
                                 <option value="7.12.0.Final">7.12.0.Final</option>
                                 <option value="7.11.0.Final">7.11.0.Final</option>
-                                <option value="7.10.0.Final">7.10.0.Final</option>
+                                <option value="7.10.0.Final">7.10.0.Final</option>                                
                             </select>
                         </div>
                     </div>
@@ -213,7 +217,7 @@
                                 <hr style="width: 70%; color: #4682B4;"/>
                             </div>
                             <div class="text-center" style="margin-top: 5px;">
-                                <a href="https://docs.jboss.org/jbpm/release/7.13.0.Final/jbpm-docs/html_single/index.html#_businessappoverview" target="_blank">
+                                <a href="https://docs.jboss.org/jbpm/release/latest/jbpm-docs/html_single/index.html#_businessappoverview" target="_blank">
                                     <button type="button" class="btn btn-primary btn-lg">
                                         <i class="fa fa-info-circle"></i>&nbsp;
                                         <span th:text="#{page.configure.success.readmore}"></span>
@@ -332,7 +336,7 @@
     }
 
     function setDefaultVersion() {
-        $('#kieVersion').val('7.13.0.Final');
+        $('#kieVersion').val('7.14.0.Final');
     }
 
     function generateWithDefaultSettings() {

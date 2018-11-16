@@ -57,7 +57,7 @@ public class IndexController {
     private static final String CONTAINER_ID = "jbpm-bootstrap-kjar";
     private static final String PROCESS_ID = "GenerateProject";
 
-    private static final String KIE_VERSION = System.getProperty("org.kie.version", "7.13.0.Final");
+    private static final String KIE_VERSION = System.getProperty("org.kie.version", "7.14.0.Final");
     private static final String MVN_SETTINGS = System.getProperty("kie.maven.settings.custom");
 
     private File parent = new File(System.getProperty("java.io.tmpdir"));
@@ -135,7 +135,7 @@ public class IndexController {
                 kjarSettings = "-DkjarGroupId=" + project.getPackageName() + " -DkjarArtifactId=" + project.getName() + "-kjar -DkjarVersion=1.0-SNAPSHOT";
             }
             if (project.getOptions().contains("dkjar")) {
-                kjarSettings = "-DkjarGroupId=" + project.getPackageName() + " -DkjarArtifactId=" + project.getName() + "-case -DkjarVersion=1.0-SNAPSHOT -DruntimeStrategy=PER_CASE";
+                kjarSettings = "-DkjarGroupId=" + project.getPackageName() + " -DkjarArtifactId=" + project.getName() + "-kjar -DkjarVersion=1.0-SNAPSHOT -DruntimeStrategy=PER_CASE";
             }
 
             String mavenSettings = "";
@@ -152,6 +152,10 @@ public class IndexController {
                        kjarSettings);
             params.put("kieVersion",
                        KIE_VERSION);
+            params.put("projectVersion",
+                    project.getVersion());
+            params.put("projectOptions",
+                    project.getOptions().stream().collect(Collectors.joining(",")));
             params.put("mavenSettings",
                     mavenSettings);
             long processInstanceId = processService.startProcess(CONTAINER_ID,
