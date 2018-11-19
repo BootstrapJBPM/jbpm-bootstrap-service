@@ -132,7 +132,14 @@
 							[ 'Decision Management', dm ],
 							[ 'Business Optimisation', bo ] ],
 					type : 'pie'
-				}
+				},
+				  pie: {
+					    label: {
+					      format: function(value, ratio, id) {
+					        return value;
+					      }
+					    }
+					  }
 			});
 		}
 		
@@ -142,7 +149,14 @@
 				data : {
 					columns : byVersion,
 					type : 'pie'
-				}
+				},
+				  pie: {
+				    label: {
+				      format: function(value, ratio, id) {
+				        return value;
+				      }
+				    }
+				  }
 			});
 		}
 		
@@ -152,7 +166,14 @@
 				data : {
 					columns : byOptions,
 					type : 'pie'
-				}
+				},
+				  pie: {
+					    label: {
+					      format: function(value, ratio, id) {
+					        return value;
+					      }
+					    }
+					  }
 			});
 		}
 

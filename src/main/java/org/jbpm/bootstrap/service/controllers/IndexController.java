@@ -57,7 +57,8 @@ public class IndexController {
     private static final String CONTAINER_ID = "jbpm-bootstrap-kjar";
     private static final String PROCESS_ID = "GenerateProject";
 
-    private static final String KIE_VERSION = System.getProperty("org.kie.version", "7.14.0.Final");
+    private static final String DEFAULT_VERSION = "7.14.0.Final";
+    private static final String KIE_VERSION = System.getProperty("org.kie.version", DEFAULT_VERSION);
     private static final String MVN_SETTINGS = System.getProperty("kie.maven.settings.custom");
 
     private File parent = new File(System.getProperty("java.io.tmpdir"));
@@ -104,7 +105,7 @@ public class IndexController {
         }
 
         if(project.getVersion() == null || project.getVersion().length() < 1) {
-            project.setVersion(KIE_VERSION);
+            project.setVersion(DEFAULT_VERSION);
         }
 
         logger.info("Received request for generating application for project {}",

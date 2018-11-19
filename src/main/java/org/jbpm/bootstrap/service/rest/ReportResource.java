@@ -84,7 +84,7 @@ public class ReportResource {
             
             List<List<Object>> byType = queryService.query("jbpmBootstrapProcessInstancesByVar", 
                     RawListQueryMapper.get(), 
-                    new QueryContext(), 
+                    new QueryContext(0, 1000), 
                     parameters); 
             
             Map<String, Number> collectedTypes = new HashMap<>();
@@ -160,7 +160,7 @@ public class ReportResource {
             
             List<List<Object>> byVersion = queryService.query("jbpmBootstrapProcessInstancesByVar", 
                     RawListQueryMapper.get(), 
-                    new QueryContext(), 
+                    new QueryContext(0, 1000), 
                     parameters); 
             
             return Response.ok()
@@ -187,7 +187,7 @@ public class ReportResource {
             
             List<List<Object>> byOptions = queryService.query("jbpmBootstrapProcessInstancesByVar", 
                     RawListQueryMapper.get(), 
-                    new QueryContext(), 
+                    new QueryContext(0, 1000), 
                     parameters);            
             
             return Response.ok()
