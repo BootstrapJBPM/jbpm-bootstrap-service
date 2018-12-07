@@ -341,6 +341,11 @@ html, body {
     border-radius: 15px;
 }
 
+.btn-400{
+    white-space:normal !important;
+    max-width:400px;
+}
+
 .jbpm-card-body{
 }
 

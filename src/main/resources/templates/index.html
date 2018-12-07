@@ -5,11 +5,13 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129697043-1"></script>
     <script>
-       window.dataLayer = window.dataLayer || [];
-       function gtag(){dataLayer.push(arguments);}
-       gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-       gtag('config', 'UA-129697043-1');
+        gtag('config', 'UA-129697043-1');
     </script>
 
     <link rel="icon" href="img/jbpm_icon.png">
@@ -17,9 +19,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="Get started with jBPM Business Applications in few seconds. Generate your Business Application directly from the website." name="description">
-	<meta content="jBPM, generate application, get started with jBPM, business automation, business process management, case management, business rules, decision services, BPMN2, DMN, CMMN, BPM, open source business automation, business applications" name="keywords">
-	<meta content="jBPM - Open Source Business Automation Toolkit - Generate business applications" itemprop="name">
-	<meta content="Get started with jBPM Business Applications in few seconds. Generate your Business Application directly from the website." itemprop="description">
+    <meta content="jBPM, generate application, get started with jBPM, business automation, business process management, case management, business rules, decision services, BPMN2, DMN, CMMN, BPM, open source business automation, business applications" name="keywords">
+    <meta content="jBPM - Open Source Business Automation Toolkit - Generate business applications" itemprop="name">
+    <meta content="Get started with jBPM Business Applications in few seconds. Generate your Business Application directly from the website." itemprop="description">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome/css/all.min.css">
     <link rel="stylesheet" href="css/jquery-editable-select.min.css">
@@ -36,25 +38,23 @@
         <center>
             <div class="card topbackground">
                 <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">
-                    <span th:text="#{page.title.build}"></span>                    
+                    <span th:text="#{page.title.build}"></span>
                 </div>
-                <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">                    
+                <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">
                     <span th:text="#{page.title.inseconds}"></span>
                 </div>
-                <p>
                 <div class="topcontent row d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary btn-lg" style="vertical-align: middle; text-align: left; width: 400px;" onclick="generateWithDefaultSettings();">
+                    <button type="button" class="btn btn-primary btn-lg btn-400" style="vertical-align: middle; text-align: left; width: 400px;" onclick="generateWithDefaultSettings();">
                         <i class="fas fa-spinner"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong th:text="#{page.generate.default}"></strong>
                     </button>
                 </div>
-                </p>
-                <p>
+                <br/>
                 <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 5% !important">
-                    <button type="button" class="btn btn-secondary btn-lg" style="vertical-align: middle;text-align: left;width: 400px;" onclick="toogleConfiguration();">
+                    <button type="button" class="btn btn-secondary btn-lg btn-400" style="vertical-align: middle;text-align: left;width: 400px;" onclick="toogleConfiguration();">
                         <i class="fas fa-sliders-h"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong th:text="#{page.generate.configure}"></strong>
                     </button>
                 </div>
-                </p>
+
             </div>
         </center>
     </div>
@@ -93,7 +93,7 @@
                     <div class="view overlay">
                         <img class="card-img-top" src="img/cloud.png" th:alt="#{page.deploy.alt}" style="height: 170px;">
                         <a href=" #!">
-                        <div class="mask rgba-white-slight"></div>
+                            <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
                     <div class="card-body">
@@ -165,15 +165,15 @@
                                 <option value="7.14.0.Final">7.14.0.Final</option>
                                 <option value="7.13.0.Final">7.13.0.Final</option>
                                 <option value="7.12.0.Final">7.12.0.Final</option>
-                                <option value="7.11.0.Final">7.11.0.Final</option>                                
+                                <option value="7.11.0.Final">7.11.0.Final</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <div v-show="currentstep == 3">                    
+                <div v-show="currentstep == 3">
                     <div class="row d-flex justify-content-around" style="height: 300px;">
-                    	<div id="warningMsg" class="alert alert-danger" role="alert"></div>
+                        <div id="warningMsg" class="alert alert-danger" role="alert"></div>
                         <div class="options middle">
                             <br/>
                             <label>
@@ -282,19 +282,34 @@
 
         </form>
     </div>
-    <p/><p/><p/><p>
-    <footer class="page-footer font-small jbpmfooter text-center">
-        <a href="http://jbpm.org/" target="_blank"><img src="img/provided_by_jbpm.png" th:alt="#{page.footer.provided}" width="180px" height="68px"></a>
-        &nbsp;&nbsp;&nbsp;
-        <a href="https://www.openshift.com/" target="_blank"><img src="img/powered_by_openshift.png" th:alt="#{page.footer.powered}" width="180px" height="48px"></a>
-    </footer>
+    <p/>
+    <p/>
+    <p/>
+    <p>
+        <footer class="page-footer font-small jbpmfooter text-center">
+            <a href="http://jbpm.org/" target="_blank"><img src="img/provided_by_jbpm.png" th:alt="#{page.footer.provided}" width="180px" height="68px"></a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="https://www.openshift.com/" target="_blank"><img src="img/powered_by_openshift.png" th:alt="#{page.footer.powered}" width="180px" height="48px"></a>
+        </footer>
     </p>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.FloatPosition.BOTTOM_LEFT,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </div>
 
 <script>
     $(document).ready(function () {
         setFormDefaults();
-		$('#warningMsg').addClass('hidden');
+        $('#warningMsg').addClass('hidden');
         $('#kieVersion').editableSelect();
         setDefaultVersion();
 
@@ -303,21 +318,21 @@
             $('#warningMsg').addClass('hidden');
             e.preventDefault();
             if (!document.getElementById('optionsKjar').checked && !document.getElementById('optionsDKjar').checked && !document.getElementById('optionsModel').checked && !document.getElementById('optionsService').checked) {
-        		$('#warningMsg').html('At least one project type must be selected');
-        		$('#warningMsg').removeClass('hidden');
-        	} else {
-        	
-            	showPleaseWait();
+                $('#warningMsg').html('At least one project type must be selected');
+                $('#warningMsg').removeClass('hidden');
+            } else {
 
-            	$('#zipName').text($('input:text#appName').val() + '.zip');
-            	$('#serviceDirName').text($('input:text#appName').val() + '-service');
-            	this.submit();
+                showPleaseWait();
 
-            	setTimeout(function () {
-                	hidePleaseWait();
-                	goToEndStep();
-            	}, 5000)
-            	setFormDefaults();
+                $('#zipName').text($('input:text#appName').val() + '.zip');
+                $('#serviceDirName').text($('input:text#appName').val() + '-service');
+                this.submit();
+
+                setTimeout(function () {
+                    hidePleaseWait();
+                    goToEndStep();
+                }, 5000)
+                setFormDefaults();
             }
         });
 
@@ -506,7 +521,7 @@
                 },
                 {
                     id: 2,
-                    title:  /*[[#{page.configure.step2}]]*/ "Application Info",
+                    title: /*[[#{page.configure.step2}]]*/ "Application Info",
                     icon_class: "fa fa fa-cog"
                 },
                 {
