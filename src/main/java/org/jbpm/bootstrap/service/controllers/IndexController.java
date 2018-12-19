@@ -103,6 +103,10 @@ public class IndexController {
         if(project.getName() == null || project.getName().length() < 1) {
             project.setName("business-application");
         }
+        
+        if(project.getPackageName() == null || project.getPackageName().length() < 1) {
+            project.setPackageName("com.company");
+        }
 
         if(project.getVersion() == null || project.getVersion().length() < 1) {
             project.setVersion(DEFAULT_VERSION);
