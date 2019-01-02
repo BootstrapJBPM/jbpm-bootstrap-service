@@ -6,12 +6,12 @@
 }, {
   "query-name" : "jbpmBootstrapExecutionErrorList",
   "query-source" : "${org.kie.server.persistence.ds}",
-  "query-expression" : "select eri.ERROR_ID from ExecutionErrorInfo eri where eri.ERROR_ACK = 0",
+  "query-expression" : "select eri.ERROR_ID from ExecutionErrorInfo eri where eri.ERROR_ACK = 0 and eri.DEPLOYMENT_ID is not null",
   "query-target" : "CUSTOM"
 },
 {
   "query-name" : "jbpmBootstrapProcessInstancesByVar",
   "query-source" : "${org.kie.server.persistence.ds}",
-  "query-expression" : "select vil.processInstanceId, vil.processId, vil.id, vil.variableId, vil.value from VariableInstanceLog vil",
+  "query-expression" : "select vil.processInstanceId, vil.processId, vil.id, vil.variableId, REPLACE(vil.value, ' ') value from VariableInstanceLog vil",
   "query-target" : "CUSTOM"
 }]
