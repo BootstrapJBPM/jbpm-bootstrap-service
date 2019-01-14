@@ -49,11 +49,11 @@ public class RestGenController {
             project.setName(name);
         }
 
-        if (packageName != null || packageName.length() > 0) {
+        if (packageName != null && packageName.length() > 0) {
             project.setPackageName(packageName);
         }
 
-        if (version != null || version.length() > 0) {
+        if (version != null && version.length() > 0) {
             project.setVersion(version);
         }
 
