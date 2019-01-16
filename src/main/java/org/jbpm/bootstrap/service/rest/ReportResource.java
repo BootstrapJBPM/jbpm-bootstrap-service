@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.actuate.metrics.buffer.BufferMetricReader;
 
 @Path("reports")
 public class ReportResource {
@@ -32,6 +33,9 @@ public class ReportResource {
     
     @Autowired
     private QueryService queryService;
+
+    @Autowired
+    private BufferMetricReader metricReader;
     
     @GET
     @Path("stats")
@@ -194,6 +198,36 @@ public class ReportResource {
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .entity(mapper.writeValueAsString(byOptions))
                 .build();
+        } catch (Exception e) {
+            logger.error("Unexepcted error while collecting report by version", e);
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("restgencount")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getRestGenCount() {
+        try {
+            return Response.ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(mapper.writeValueAsString(metricReader.findOne("counter.rest.generation.success")))
+                    .build();
+        } catch (Exception e) {
+            logger.error("Unexepcted error while collecting report by version", e);
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("webgencount")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getWebGenCount() {
+        try {
+            return Response.ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(mapper.writeValueAsString(metricReader.findOne("counter.web.generation.success")))
+                    .build();
         } catch (Exception e) {
             logger.error("Unexepcted error while collecting report by version", e);
             return Response.serverError().entity(e.getMessage()).build();

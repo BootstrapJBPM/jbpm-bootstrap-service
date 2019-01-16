@@ -19,6 +19,7 @@ import org.kie.internal.runtime.error.ExecutionError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -34,12 +35,19 @@ public class BuildComponent {
     private static final String PROCESS_ID = "GenerateProject";
 
     private static final String DEFAULT_VERSION = "7.16.0.Final";
+    private static final String DEFAULT_SNAPSHOT_VERSION = "7.16.0-SNAPSHOT";
     private static final String KIE_VERSION = System.getProperty("org.kie.version",
                                                                  DEFAULT_VERSION);
     private static final String MVN_SETTINGS = System.getProperty("kie.maven.settings.custom");
 
     @Autowired
     private ProcessService processService;
+
+    private final CounterService counterService;
+
+    public BuildComponent(CounterService counterService) {
+        this.counterService = counterService;
+    }
 
     @Autowired
     ProcessInstanceAdminService processInstanceAdminService;
@@ -126,11 +134,24 @@ public class BuildComponent {
                     headers,
                     org.springframework.http.HttpStatus.OK);
 
+            if(isWeb) {
+                counterService.increment("counter.web.generation.success");
+            } else {
+                counterService.increment("counter.rest.generation.success");
+            }
+
             return response;
 
         } catch (Exception e) {
             logger.error("Error when generating project",
                          e);
+
+            if(isWeb) {
+                counterService.increment("counter.web.generation.failure");
+            } else {
+                counterService.increment("counter.rest.generation.failure");
+            }
+
             throw new Exception(e.getMessage());
         } finally {
 

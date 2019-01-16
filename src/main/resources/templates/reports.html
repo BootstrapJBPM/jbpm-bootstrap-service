@@ -63,7 +63,6 @@
 		</div>
 		<br />
 
-
 		<nav class="navbar navbar-light bg-light">
 			<div class="col-sm-12 text-center jbpm-card-body">
 				<h2>
@@ -95,6 +94,38 @@
 			</div>
 
 		</div>
+		<br />
+		<nav class="navbar navbar-light bg-light">
+			<div class="col-sm-12 text-center jbpm-card-body">
+				<h2>
+					<strong>Counts</strong> for app generation since last restart
+				</h2>
+			</div>
+		</nav>
+		<br/>
+		<div class="row justify-content-center" style="width: 70%; margin-left: 15%">
+			<div class="col-sm-5">
+				<div class="card text-center" style="width: 25rem;">
+					<div class="card-header">Web generations</div>
+					<div class="card-body">
+						<p class="card-text text-center">
+							<b><span id="totalWebSinceRestart"></span></b>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="card text-center" style="width: 25rem;">
+					<div class="card-header">Rest generations</div>
+					<div class="card-body">
+						<p class="card-text text-center">
+							<b><span id="totalRestSinceRestart"></span></b>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
 		<br />
 		<br />
 		<footer class="page-footer font-small jbpmfooter text-center">
@@ -229,6 +260,32 @@
 								loadPieOptionsChart(data);
 
 							});
+
+                            $.get(window.location.protocol + "//"
+                                    + window.location.host
+                                    + "/rest/reports/webgencount", function(data,
+                                    status) {
+
+                                if(data == null) {
+                                    $('#totalWebSinceRestart').text("0");
+								} else {
+                                    $('#totalWebSinceRestart').text(data.value);
+								}
+
+                            });
+
+                            $.get(window.location.protocol + "//"
+                                    + window.location.host
+                                    + "/rest/reports/restgencount", function(data,
+                                    status) {
+
+                                if(data == null) {
+                                    $('#totalRestSinceRestart').text("0");
+                                } else {
+                                    $('#totalRestSinceRestart').text(data.value);
+                                }
+
+                            });
 
 						});
 	</script>
