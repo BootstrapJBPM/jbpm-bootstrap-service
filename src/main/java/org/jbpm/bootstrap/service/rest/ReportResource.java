@@ -55,7 +55,7 @@ public class ReportResource {
                     RawListQueryMapper.get(), 
                     new QueryContext(), 
                     QueryParam.count("ERROR_ID"));
-            
+
             collectedStatistics.add((Number)totalProcesses.get(0).get(0));
             collectedStatistics.add((Number)todayProcesses.get(0).get(0));
             collectedStatistics.add((Number)totalErrors.get(0).get(0));
@@ -195,7 +195,45 @@ public class ReportResource {
                 .entity(mapper.writeValueAsString(byOptions))
                 .build();
         } catch (Exception e) {
-            logger.error("Unexepcted error while collecting report by version", e);
+            logger.error("Unexepcted error while collecting report by option", e);
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("gentypes")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response collectByGenerationType() {
+        try {
+
+            QueryParam[] parameters = QueryParam.getBuilder()
+                    .append(QueryParam.groupBy("value"))
+                    .append(QueryParam.count("processInstanceId"))
+                    .append(QueryParam.equalsTo("variableId", "generationType"))
+                    .get();
+
+
+            List<List<Object>> totalProcesses = queryService.query("jbpmBootstrapProcessInstances",
+                                                                   RawListQueryMapper.get(),
+                                                                   new QueryContext(),
+                                                                   QueryParam.count("processInstanceId"));
+
+            List<List<Object>> byGenerationType = queryService.query("jbpmBootstrapProcessInstancesByVar",
+                                                              RawListQueryMapper.get(),
+                                                              new QueryContext(0, 1000),
+                                                              parameters);
+
+            List<Object> totalList = new ArrayList<>();
+            totalList.add("total");
+            totalList.add(totalProcesses.get(0).get(0));
+            byGenerationType.add(totalList);
+
+            return Response.ok()
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(mapper.writeValueAsString(byGenerationType))
+                    .build();
+        } catch (Exception e) {
+            logger.error("Unexepcted error while collecting report by generation type", e);
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
