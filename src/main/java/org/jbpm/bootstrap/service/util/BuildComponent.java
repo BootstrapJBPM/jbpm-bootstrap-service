@@ -99,6 +99,8 @@ public class BuildComponent {
                        project.getOptions().stream().collect(Collectors.joining(",")));
             params.put("mavenSettings",
                        mavenSettings);
+            params.put("generationType", isWeb ? "web" : "rest");
+
             long processInstanceId = processService.startProcess(CONTAINER_ID,
                                                                  PROCESS_ID,
                                                                  params);

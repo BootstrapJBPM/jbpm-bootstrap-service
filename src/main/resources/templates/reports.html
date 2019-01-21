@@ -95,6 +95,13 @@
 			</div>
 
 		</div>
+		<br /> <br />
+		<div class="row" style="width: 70%; margin-left: 15%">
+
+			<div class="col-sm-6">
+				<div id="chart-per-gentype"></div>
+			</div>
+		</div>
 		<br />
 		<br />
 		<footer class="page-footer font-small jbpmfooter text-center">
@@ -177,6 +184,23 @@
 			});
 		}
 
+        function loadPieGenTypeChart(byGenType) {
+            var pchart = c3.generate({
+                bindto : '#chart-per-gentype',
+                data : {
+                    columns : byGenType,
+                    type : 'pie'
+                },
+                pie: {
+                    label: {
+                        format: function(value, ratio, id) {
+                            return value;
+                        }
+                    }
+                }
+            });
+        }
+
 		$(document)
 				.ready(
 						function() {
@@ -229,6 +253,31 @@
 								loadPieOptionsChart(data);
 
 							});
+
+                            $.get(window.location.protocol + "//"
+                                    + window.location.host
+                                    + "/rest/reports/gentypes", function(data,
+                                    status) {
+
+                                var chartData = [];
+                                var totalWeb = 0, totalRest = 0, totalAll = 0;
+
+                                data.map( function(item) {
+									if(item[0] == 'web') {
+									    totalWeb = item[1];
+									} else if(item[0] == 'rest') {
+                                        totalRest = item[1];
+									} else if(item[0] == 'total') {
+                                        totalAll = item[1];
+									}
+                                });
+
+                                chartData.push(['web', totalAll - totalRest]);
+                                chartData.push(['rest', totalRest]);
+
+                                loadPieGenTypeChart(chartData);
+
+                            });
 
 						});
 	</script>
