@@ -33,11 +33,11 @@ public class BuildComponent {
     private static final String CONTAINER_ID = "jbpm-bootstrap-kjar";
     private static final String PROCESS_ID = "GenerateProject";
 
-    private static final String DEFAULT_VERSION = "7.17.0.Final";
+    private static final String DEFAULT_VERSION = "7.18.0.Final";
     private static final String KIE_VERSION = System.getProperty("org.kie.version",
                                                                  DEFAULT_VERSION);
     private static final String MVN_SETTINGS = System.getProperty("kie.maven.settings.custom");
-    
+
     private static final String DEFAULT_SPRING_BOOT_VERSION = "2.1.1.RELEASE";
     private static final String OLD_SPRING_BOOT_VERSION = "1.5.12.RELEASE";
 
@@ -103,7 +103,7 @@ public class BuildComponent {
             params.put("mavenSettings",
                        mavenSettings);
             params.put("generationType", isWeb ? "web" : "rest");
-            
+
             String[] versionItems = project.getVersion().split("\\.");
             Integer minorVersion = Integer.parseInt(versionItems[1]);
             // in 7.18 spring boot was upgraded to 2.1.x and thus needs to change version based on selected version
