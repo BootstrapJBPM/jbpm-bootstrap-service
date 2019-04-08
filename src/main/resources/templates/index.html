@@ -36,9 +36,9 @@
         <center>
             <div class="card topbackground">
                 <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">
-                    <span th:text="#{page.title.build}"></span>                    
+                    <span th:text="#{page.title.build}"></span>
                 </div>
-                <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">                    
+                <div class="topcontent row d-flex justify-content-center" style="margin-bottom: 1% !important;">
                     <span th:text="#{page.title.inseconds}"></span>
                 </div>
                 <p>
@@ -156,24 +156,25 @@
                         <div class="form-group">
                             <label class="my-1 mr-2" for="kieVersion"><strong th:text="#{page.configure.appinfo.version}"></strong></label>
                             <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
-                                <option value="" disabled>Enterprise</option>                                
-                                <option value="7.14.0.Final-redhat-00002">Enterprise 7.2</option>                                
-                                <option value="7.11.0.Final-redhat-00004">Enterprise 7.1.1</option>
-                                <option value="7.11.0.Final-redhat-00003">Enterprise 7.1</option>
+                                <option value="" disabled>Enterprise</option>
+                                <option value="7.18.0.Final-redhat-00002">Enterprise 7.3</option>
+                                <option value="7.14.0.Final-redhat-00004">Enterprise 7.2.1</option>
+                                <option value="7.14.0.Final-redhat-00002">Enterprise 7.2</option>
                                 <option value="" disabled>Community</option>
-                                <option value="7.19.0-SNAPSHOT">7.19.0-SNAPSHOT</option>
-                                <option value="7.18.0.Final" selected>7.18.0.Final</option>
+                                <option value="7.21.0-SNAPSHOT">7.21.0-SNAPSHOT</option>
+                                <option value="7.20.0.Final">7.20.0.Final</option>
+                                <option value="7.19.0.Final">7.19.0.Final</option>
+                                <option value="7.18.0.Final">7.18.0.Final</option>
 								<option value="7.17.0.Final">7.17.0.Final</option>
 								<option value="7.16.0.Final">7.16.0.Final</option>
                                 <option value="7.15.0.Final">7.15.0.Final</option>
                                 <option value="7.14.0.Final">7.14.0.Final</option>
-                                <option value="7.13.0.Final">7.13.0.Final</option>                                
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <div v-show="currentstep == 3">                    
+                <div v-show="currentstep == 3">
                     <div class="row d-flex justify-content-around" style="height: 300px;">
                     	<div id="warningMsg" class="alert alert-danger" role="alert"></div>
                         <div class="options middle">
@@ -308,7 +309,7 @@
         		$('#warningMsg').html('At least one project type must be selected');
         		$('#warningMsg').removeClass('hidden');
         	} else {
-        	
+
             	showPleaseWait();
 
             	$('#zipName').text($('input:text#appName').val() + '.zip');
@@ -350,7 +351,7 @@
     }
 
     function setDefaultVersion() {
-        $('#kieVersion').val('7.18.0.Final');
+        $('#kieVersion').val('7.20.0.Final');
     }
 
     function generateWithDefaultSettings() {
