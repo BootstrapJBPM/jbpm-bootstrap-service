@@ -33,12 +33,12 @@ public class BuildComponent {
     private static final String CONTAINER_ID = "jbpm-bootstrap-kjar";
     private static final String PROCESS_ID = "GenerateProject";
 
-    private static final String DEFAULT_VERSION = "7.31.0.Final";
+    private static final String DEFAULT_VERSION = "7.33.0.Final";
     private static final String KIE_VERSION = System.getProperty("org.kie.version",
                                                                  DEFAULT_VERSION);
     private static final String MVN_SETTINGS = System.getProperty("kie.maven.settings.custom");
 
-    private static final String DEFAULT_SPRING_BOOT_VERSION = "2.1.1.RELEASE";
+    private static final String DEFAULT_SPRING_BOOT_VERSION = "2.2.2.RELEASE";
     private static final String OLD_SPRING_BOOT_VERSION = "1.5.12.RELEASE";
 
     @Autowired
