@@ -2,6 +2,7 @@
 *.class
 target
 .mvn
+.idea/*
 
 # Log file
 *.log
@@ -20,6 +21,14 @@ target
 *.zip
 *.tar.gz
 *.rar
+
+# Eclipse, Netbeans and IntelliJ files
+/.*
+!.gitignore
+/nbproject
+/*.ipr
+/*.iws
+*.iml
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
