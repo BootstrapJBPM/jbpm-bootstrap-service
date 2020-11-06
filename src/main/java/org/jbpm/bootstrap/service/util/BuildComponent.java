@@ -33,7 +33,7 @@ public class BuildComponent {
     private static final String CONTAINER_ID = "jbpm-bootstrap-kjar";
     private static final String PROCESS_ID = "GenerateProject";
 
-    private static final String DEFAULT_VERSION = "7.41.0.Final";
+    private static final String DEFAULT_VERSION = "7.45.0.Final";
     private static final String KIE_VERSION = System.getProperty("org.kie.version",
                                                                  DEFAULT_VERSION);
     private static final String MVN_SETTINGS = System.getProperty("kie.maven.settings.custom");
