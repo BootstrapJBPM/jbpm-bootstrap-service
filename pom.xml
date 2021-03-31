@@ -25,6 +25,7 @@
     
     <kie.version>7.52.0.Final</kie.version>
     <org.jbpm.start.model.version>1.0.0</org.jbpm.start.model.version>
+    <jkube.version>1.2.0</jkube.version>
   </properties>
 
   <dependencies>
@@ -126,15 +127,15 @@
       </activation>
 
       <properties>
-        <fabric8.mode>kubernetes</fabric8.mode>
+        <jkube.mode>kubernetes</jkube.mode>
       </properties>
 
       <build>
         <plugins>
           <plugin>
-            <groupId>io.fabric8</groupId>
-            <artifactId>fabric8-maven-plugin</artifactId>
-            <version>3.5.40</version>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>kubernetes-maven-plugin</artifactId>
+            <version>${jkube.version}</version>
             <configuration>
               <verbose>false</verbose>
               <images>
@@ -157,17 +158,19 @@
                             <destName>bootstrap-jbpm.xml</destName>
                           </file>
                         </files>
-                        <fileSet>
-                          <directory>src/main/docker</directory>
-                          <outputDirectory>opt/jboss/.m2</outputDirectory>
-                          <includes>
-                            <include>settings.xml</include>
-                          </includes>
-                        </fileSet>
-                        <fileSet>
-                          <directory>../jbpm-bootstrap-kjar/target/local-repository/maven</directory>
-                          <outputDirectory>opt/jboss/.m2/repository</outputDirectory>
-                        </fileSet>
+                        <fileSets>
+                          <fileSet>
+                            <directory>src/main/docker</directory>
+                            <outputDirectory>opt/jboss/.m2</outputDirectory>
+                            <includes>
+                              <include>settings.xml</include>
+                            </includes>
+                          </fileSet>
+                          <fileSet>
+                            <directory>../jbpm-bootstrap-kjar/target/local-repository/maven</directory>
+                            <outputDirectory>opt/jboss/.m2/repository</outputDirectory>
+                          </fileSet>
+                        </fileSets>
                       </inline>
                       <user>jboss:jboss:jboss</user>
                     </assembly>
@@ -200,15 +203,15 @@
       </activation>
 
       <properties>
-        <fabric8.mode>kubernetes</fabric8.mode>
+        <jkube.mode>kubernetes</jkube.mode>
       </properties>
 
       <build>
         <plugins>
           <plugin>
-            <groupId>io.fabric8</groupId>
-            <artifactId>fabric8-maven-plugin</artifactId>
-            <version>3.5.40</version>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>openshift-maven-plugin</artifactId>
+            <version>${jkube.version}</version>
             <configuration>
               <verbose>false</verbose>
               <images>
@@ -231,17 +234,19 @@
                             <destName>bootstrap-jbpm.xml</destName>
                           </file>
                         </files>
-                        <fileSet>
-                          <directory>src/main/docker</directory>
-                          <outputDirectory>opt/jboss/.m2</outputDirectory>
-                          <includes>
-                            <include>settings.xml</include>
-                          </includes>
-                        </fileSet>
-                        <fileSet>
-                          <directory>../jbpm-bootstrap-kjar/target/local-repository/maven</directory>
-                          <outputDirectory>opt/jboss/.m2/repository</outputDirectory>
-                        </fileSet>
+                        <fileSets>
+                          <fileSet>
+                            <directory>src/main/docker</directory>
+                            <outputDirectory>opt/jboss/.m2</outputDirectory>
+                            <includes>
+                              <include>settings.xml</include>
+                            </includes>
+                          </fileSet>
+                          <fileSet>
+                            <directory>../jbpm-bootstrap-kjar/target/local-repository/maven</directory>
+                            <outputDirectory>opt/jboss/.m2/repository</outputDirectory>
+                          </fileSet>
+                        </fileSets>
                       </inline>
                       <user>jboss:jboss:jboss</user>
                     </assembly>
