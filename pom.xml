@@ -203,7 +203,7 @@
       </activation>
 
       <properties>
-        <jkube.mode>kubernetes</jkube.mode>
+        <jkube.mode>openshift</jkube.mode>
       </properties>
 
       <build>
@@ -218,7 +218,7 @@
                 <image>
                   <name>jbpm/${project.artifactId}:${project.version}</name>
                   <build>
-                    <from>fabric8/java-jboss-openjdk8-jdk</from>
+                    <from>fabric8/s2i-java:latest</from>
                     <assembly>
                       <targetDir>/</targetDir>
                       <inline>
