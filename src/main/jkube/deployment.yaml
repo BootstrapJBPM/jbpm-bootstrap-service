@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jbpm-bootstrap-service
+  name: jbpm-bootstrap-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jbpm-bootstrap-service
+  template:
+    metadata:
+      labels:
+        app: jbpm-bootstrap-service
+    spec:
+      containers:
+        - name: jbpm-bootstrap-service
+          image: jbpm-bootstrap-service:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+            - containerPort: 8778
+              protocol: TCP
+            - containerPort: 9779
+              protocol: TCP
+          resources:
+            requests:
+              memory: "1024Mi"
+              cpu: "500m"
+            limits:
+              memory: "2048Mi"
+              cpu: "1000m"
+  triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - jbpm-bootstrap-service
+        from:
+          kind: ImageStreamTag
+          name: 'jbpm-bootstrap-service:1.0.0'
+      type: ImageChange
+    - type: ConfigChange

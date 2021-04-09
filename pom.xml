@@ -214,11 +214,12 @@
             <version>${jkube.version}</version>
             <configuration>
               <verbose>false</verbose>
+              <buildStrategy>docker</buildStrategy>
               <images>
                 <image>
                   <name>jbpm/${project.artifactId}:${project.version}</name>
                   <build>
-                    <from>fabric8/s2i-java:latest</from>
+                    <from>fabric8/java-centos-openjdk8-jre</from>
                     <assembly>
                       <targetDir>/</targetDir>
                       <inline>
