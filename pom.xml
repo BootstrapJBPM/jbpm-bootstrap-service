@@ -204,6 +204,7 @@
 
       <properties>
         <jkube.mode>openshift</jkube.mode>
+        <local.maven.path>../jbpm-bootstrap-kjar/target/local-repository/maven<</local.maven.path>
       </properties>
 
       <build>
@@ -244,7 +245,7 @@
                             </includes>
                           </fileSet>
                           <fileSet>
-                            <directory>../jbpm-bootstrap-kjar/target/local-repository/maven</directory>
+                            <directory>${local.maven.path}</directory>
                             <outputDirectory>opt/jboss/.m2/repository</outputDirectory>
                           </fileSet>
                         </fileSets>
