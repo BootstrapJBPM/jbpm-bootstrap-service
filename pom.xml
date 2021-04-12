@@ -204,7 +204,7 @@
 
       <properties>
         <jkube.mode>openshift</jkube.mode>
-        <local.maven.path>../jbpm-bootstrap-kjar/target/local-repository/maven<</local.maven.path>
+        <local.maven.path>../jbpm-bootstrap-kjar/target/local-repository/maven</local.maven.path>
       </properties>
 
       <build>
