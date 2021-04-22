@@ -157,18 +157,26 @@
                             <label class="my-1 mr-2" for="kieVersion"><strong th:text="#{page.configure.appinfo.version}"></strong></label>
                             <select class="custom-select my-1 mr-sm-2" id="kieVersion" th:field="*{version}">
                                 <option value="" disabled>Enterprise</option>
+                                <option value="7.48.0.Final-redhat-00006">Enterprise 7.10.1</option>
+                                <option value="7.48.0.Final-redhat-00004">Enterprise 7.10.0</option>
                                 <option value="7.44.0.Final-redhat-00003">Enterprise 7.9.0</option>
                                 <option value="7.39.0.Final-redhat-00007">Enterprise 7.8.1</option>
                                 <option value="7.39.0.Final-redhat-00005">Enterprise 7.8.0</option>
                                 <option value="7.33.0.Final-redhat-00002">Enterprise 7.7.0</option>
-								<option value="7.30.0.Final-redhat-00003">Enterprise 7.6.0</option>
+                                <option value="7.30.0.Final-redhat-00003">Enterprise 7.6.0</option>
                                 <option value="7.26.0.Final-redhat-00006">Enterprise 7.5.1</option>
                                 <option value="7.26.0.Final-redhat-00005">Enterprise 7.5.0</option>
                                 <option value="7.23.0.Final-redhat-00002">Enterprise 7.4</option>
                                 <option value="7.18.0.Final-redhat-00004">Enterprise 7.3.1</option>
                                 <option value="7.18.0.Final-redhat-00002">Enterprise 7.3</option>
                                 <option value="" disabled>Community</option>
-                                <option value="7.46.0-SNAPSHOT">7.46.0-SNAPSHOT</option>
+                                <option value="7.52.0.Final">7.52.0.Final</option>
+                                <option value="7.51.0.Final">7.51.0.Final</option>
+                                <option value="7.50.0.Final">7.50.0.Final</option>
+                                <option value="7.49.0.Final">7.49.0.Final</option>
+                                <option value="7.48.0.Final">7.48.0.Final</option>
+                                <option value="7.47.0.Final">7.47.0.Final</option>
+                                <option value="7.46.0.Final">7.46.0.Final</option>
                                 <option value="7.45.0.Final">7.45.0.Final</option>
                                 <option value="7.44.0.Final">7.44.0.Final</option>
                                 <option value="7.43.0.Final">7.43.0.Final</option>
@@ -363,7 +371,7 @@
     }
 
     function setDefaultVersion() {
-        $('#kieVersion').val('7.45.0.Final');
+        $('#kieVersion').val('7.52.0.Final');
     }
 
     function generateWithDefaultSettings() {
