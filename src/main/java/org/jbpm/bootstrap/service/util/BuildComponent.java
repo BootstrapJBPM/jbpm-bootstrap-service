@@ -38,7 +38,7 @@ public class BuildComponent {
                                                                  DEFAULT_VERSION);
     private static final String MVN_SETTINGS = System.getProperty("kie.maven.settings.custom");
 
-    private static final String DEFAULT_SPRING_BOOT_VERSION = "2.2.2.RELEASE";
+    private static final String DEFAULT_SPRING_BOOT_VERSION = "2.2.10.RELEASE";
     private static final String OLD_SPRING_BOOT_VERSION = "1.5.12.RELEASE";
 
     @Autowired
