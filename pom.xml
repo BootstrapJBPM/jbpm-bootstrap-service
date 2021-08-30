@@ -23,7 +23,7 @@
     <java.version>1.8</java.version>
     <narayana.version>5.9.0.Final</narayana.version>
     
-    <kie.version>7.58.0.Final</kie.version>
+    <kie.version>7.59.0.Final</kie.version>
     <org.jbpm.start.model.version>1.0.0</org.jbpm.start.model.version>
   </properties>
 
